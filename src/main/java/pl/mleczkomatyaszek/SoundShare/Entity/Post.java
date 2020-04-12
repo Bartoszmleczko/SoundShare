@@ -21,5 +21,5 @@ public class Post {
 
     @Column(name = "post_description")
     private String postDescription;
-    
+
 }
