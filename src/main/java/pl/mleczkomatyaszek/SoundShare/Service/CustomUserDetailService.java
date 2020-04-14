@@ -8,6 +8,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import pl.mleczkomatyaszek.SoundShare.Entity.Role;
 import pl.mleczkomatyaszek.SoundShare.Entity.User;
+import pl.mleczkomatyaszek.SoundShare.Repository.UserRepository;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
@@ -18,18 +19,17 @@ import java.util.Set;
 @Service
 public class CustomUserDetailService implements UserDetailsService {
 
-    private final UserService userService;
+    private final UserRepository userRepository;
 
-    public CustomUserDetailService(UserService userService) {
-        this.userService = userService;
+    public CustomUserDetailService(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
-
 
     @Transactional
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-        User user = userService.findByUsername(username);
+        User user = userRepository.findByUsername(username);
         List<GrantedAuthority> roles = getUserAuthority(user.getRoles());
 
         return buildUserForAuthentication(user,roles);

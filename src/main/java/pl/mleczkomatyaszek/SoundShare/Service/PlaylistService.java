@@ -27,4 +27,5 @@ public class PlaylistService {
         return playlistRepository.findById(id).orElseThrow(() ->new GenericIdNotFoundException(Playlist.class.getSimpleName(),id));
     }
 
+
 }

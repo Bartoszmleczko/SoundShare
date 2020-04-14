@@ -30,4 +30,5 @@ public class Post {
     @ManyToOne(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
     private Song song;
 
+
 }

@@ -4,11 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import pl.mleczkomatyaszek.SoundShare.Model.SongModel;
 import pl.mleczkomatyaszek.SoundShare.Service.FileStorageService;
 
 import java.io.File;
@@ -28,10 +26,9 @@ public class FileUploadController {
     }
 
     @PostMapping(value = "/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<Object> uploadFile (@RequestParam("file") MultipartFile uploadedFile) throws IOException {
+    public ResponseEntity<Object> uploadFile (@RequestParam("file") MultipartFile uploadedFile,@RequestParam("title") String title,@RequestParam("rate") Integer rate) throws IOException {
 
-        fileStorageService.store(uploadedFile);
-
+        //fileStorageService.store(uploadedFile.getMultipartFile());
         return new ResponseEntity<Object>("Uploaded successfully",HttpStatus.OK);
 
     }

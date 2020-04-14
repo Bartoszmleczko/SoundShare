@@ -1,14 +1,18 @@
 package pl.mleczkomatyaszek.SoundShare.Service;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import pl.mleczkomatyaszek.SoundShare.Entity.Role;
 import pl.mleczkomatyaszek.SoundShare.Entity.User;
+import pl.mleczkomatyaszek.SoundShare.Exception.GenericIdNotFoundException;
+import pl.mleczkomatyaszek.SoundShare.Exception.UsernameAlreadyExistsException;
 import pl.mleczkomatyaszek.SoundShare.Repository.RoleRepository;
 import pl.mleczkomatyaszek.SoundShare.Repository.UserRepository;
 
 import javax.transaction.Transactional;
+import java.io.File;
+import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.HashSet;
 
@@ -17,11 +21,13 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
+    private final FileStorageService fileStorageService;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    public UserService(UserRepository userRepository, RoleRepository roleRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
+    public UserService(UserRepository userRepository, RoleRepository roleRepository, FileStorageService fileStorageService, BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
+        this.fileStorageService = fileStorageService;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
@@ -31,11 +37,17 @@ public class UserService {
     }
 
     @Transactional
-    public User saveUser(User user){
+    public User findById(Long id){
+        return userRepository.findById(id).orElseThrow(() -> new GenericIdNotFoundException(User.class.getSimpleName(),id));
+    }
 
+    @Transactional
+    public User saveUser(User user){
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         Role role = roleRepository.findByName("USER");
         user.setRoles(new HashSet<>(Arrays.asList(role)));
+        fileStorageService.initDir(user.getUsername());
+        user.setUserPath(fileStorageService.getUploadPath().toString());
         return userRepository.save(user);
     }
 
