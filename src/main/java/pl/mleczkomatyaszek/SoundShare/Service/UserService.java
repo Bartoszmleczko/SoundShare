@@ -1,12 +1,16 @@
 package pl.mleczkomatyaszek.SoundShare.Service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import pl.mleczkomatyaszek.SoundShare.Entity.Role;
 import pl.mleczkomatyaszek.SoundShare.Entity.User;
 import pl.mleczkomatyaszek.SoundShare.Repository.RoleRepository;
 import pl.mleczkomatyaszek.SoundShare.Repository.UserRepository;
 
 import javax.transaction.Transactional;
+import java.util.Arrays;
+import java.util.HashSet;
 
 @Service
 public class UserService {
@@ -30,7 +34,8 @@ public class UserService {
     public User saveUser(User user){
 
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-
+        Role role = roleRepository.findByName("USER");
+        user.setRoles(new HashSet<>(Arrays.asList(role)));
         return userRepository.save(user);
     }
 

@@ -1,9 +1,13 @@
 package pl.mleczkomatyaszek.SoundShare.Entity;
 
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "song")
@@ -24,5 +28,9 @@ public class Song {
 
     @Column(name = "rate")
     private Integer rate;
+
+    @OneToMany(mappedBy = "song", cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
+    @JsonBackReference
+    private List<Post> posts = new ArrayList<>();
 
 }

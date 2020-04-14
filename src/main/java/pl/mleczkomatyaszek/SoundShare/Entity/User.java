@@ -19,8 +19,6 @@ import java.util.Set;
 @Entity
 @Table(name = "user")
 @Data
-@Getter
-@Setter
 @NoArgsConstructor
 public class User {
 
@@ -38,7 +36,7 @@ public class User {
     @Size(min = 3,max = 25)
     @NotNull(message="This field cannot be empty")
     @NotEmpty(message="This field cannot be empty")
-    @Column(name = "password")
+    @Column(name = "password", columnDefinition = "LONGTEXT")
     private String password;
 
     @Size(min = 3,max = 25)
@@ -63,5 +61,10 @@ public class User {
     @JoinTable(name = "user_roles",joinColumns = @JoinColumn(name = "user_id"),inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Post> posts = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user", cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
+    private List<Playlist> playlists = new ArrayList<>();
 
 }
