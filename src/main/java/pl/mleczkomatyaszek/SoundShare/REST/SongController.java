@@ -1,5 +1,8 @@
 package pl.mleczkomatyaszek.SoundShare.REST;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -21,14 +24,14 @@ public class SongController {
 
     private final SongService songService;
 
-
+    @Autowired
     public SongController(SongService songService) {
         this.songService = songService;
     }
 
     @GetMapping("/songs")
-    public List<Song> findAll(Optional<String> title, Sort sort){
-        return songService.findAll(title,sort);
+    public Page<Song> findAll(Optional<String> title, Pageable pageable){
+        return songService.findAll(title,pageable);
     }
 
     @GetMapping("/songs/{id}")
@@ -38,9 +41,20 @@ public class SongController {
 
 
     @PostMapping(value = "/songs", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public SongModel uploadSong(@RequestParam("file") MultipartFile file , @RequestParam("title") String title,Principal principal){
-
+    public Song uploadSong(@RequestParam("file") MultipartFile file , @RequestParam("title") String title,Principal principal){
             return songService.save(file,title,principal);
     }
+
+    @PutMapping("/songs")
+    public Song song(@RequestBody SongModel model){
+        return songService.edit(model);
+    }
+
+    @DeleteMapping("/songs/{id}")
+    public String delete(@PathVariable Long id){
+        return songService.delete(id);
+    }
+
+
 
 }

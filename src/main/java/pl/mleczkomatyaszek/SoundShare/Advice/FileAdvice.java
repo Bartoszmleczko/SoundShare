@@ -5,15 +5,15 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
-import pl.mleczkomatyaszek.SoundShare.Exception.UsernameAlreadyExistsException;
+import pl.mleczkomatyaszek.SoundShare.Exception.WrongFileFormatException;
 
 @ControllerAdvice
-public class UserAdvice {
+public class FileAdvice {
 
     @ResponseBody
-    @ExceptionHandler(UsernameAlreadyExistsException.class)
+    @ExceptionHandler(WrongFileFormatException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public String usernameAlreadyExists(UsernameAlreadyExistsException ex){
+    public String wrongFormat(WrongFileFormatException ex){
         return ex.getMessage();
     }
 

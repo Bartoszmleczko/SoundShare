@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.OptionalDouble;
 
 @Entity
 @Table(name = "song")
@@ -32,12 +33,20 @@ public class Song {
     @Column(name = "file_path")
     private String filePath;
 
-    @NonNull
     @Column(name = "rate")
-    private Integer rate;
+    private Double rate;
+
+
+    @Column(name = "ratings")
+    @ElementCollection(targetClass=Integer.class)
+    private List<Integer> ratings = new ArrayList<>();
 
     @OneToMany(mappedBy = "song", cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
     @JsonBackReference
     private List<Post> posts = new ArrayList<>();
 
+    public void setRate(OptionalDouble average) {
+        if(average.isPresent())
+        this.rate = average.getAsDouble();
+    }
 }

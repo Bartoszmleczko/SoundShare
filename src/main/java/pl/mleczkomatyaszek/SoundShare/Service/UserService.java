@@ -1,18 +1,14 @@
 package pl.mleczkomatyaszek.SoundShare.Service;
 
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import pl.mleczkomatyaszek.SoundShare.Entity.Role;
 import pl.mleczkomatyaszek.SoundShare.Entity.User;
 import pl.mleczkomatyaszek.SoundShare.Exception.GenericIdNotFoundException;
-import pl.mleczkomatyaszek.SoundShare.Exception.UsernameAlreadyExistsException;
 import pl.mleczkomatyaszek.SoundShare.Repository.RoleRepository;
 import pl.mleczkomatyaszek.SoundShare.Repository.UserRepository;
 
 import javax.transaction.Transactional;
-import java.io.File;
-import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.HashSet;
 

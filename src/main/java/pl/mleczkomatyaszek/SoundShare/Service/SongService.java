@@ -1,11 +1,15 @@
 package pl.mleczkomatyaszek.SoundShare.Service;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import pl.mleczkomatyaszek.SoundShare.Entity.Song;
 import pl.mleczkomatyaszek.SoundShare.Entity.User;
 import pl.mleczkomatyaszek.SoundShare.Exception.GenericIdNotFoundException;
+import pl.mleczkomatyaszek.SoundShare.Exception.WrongFileFormatException;
 import pl.mleczkomatyaszek.SoundShare.Model.SongModel;
 import pl.mleczkomatyaszek.SoundShare.Repository.SongRepository;
 
@@ -24,6 +28,7 @@ public class SongService {
     private final UserService userService;
     private final FileStorageService fileStorageService;
 
+    @Autowired
     public SongService(SongRepository songRepository, UserService userService, FileStorageService fileStorageService) {
         this.songRepository = songRepository;
         this.userService = userService;
@@ -31,8 +36,8 @@ public class SongService {
     }
 
     @Transactional
-    public List<Song> findAll(Optional<String> title, Sort sort){
-        return songRepository.findByTitle(title.orElse("_"),sort);
+    public Page<Song> findAll(Optional<String> title, Pageable pageable){
+        return songRepository.findByTitle(title.orElse("_"),pageable);
     }
 
     @Transactional
@@ -42,14 +47,37 @@ public class SongService {
 
 
     @Transactional
-    public SongModel save(MultipartFile file, String title, Principal principal){
+    public Song save(MultipartFile file, String title, Principal principal){
+
+        String suffix = file.getOriginalFilename().substring(file.getOriginalFilename().length()-4);
+        if(!suffix.equals(".mp3"))
+            throw new WrongFileFormatException();
 
         User user = userService.findByUsername(principal.getName());
         fileStorageService.store(file,user.getUsername());
         Path path = Paths.get(user.getUserPath()+ File.separator + file.getOriginalFilename());
-
-        return new SongModel(title,path.toString(),0);
-
+        Song song = new Song(title,path.toString());
+        return songRepository.save(song);
     }
+
+    @Transactional
+    public Song edit(SongModel model){
+        Song song = this.findById(model.getSongId());
+        song.setTitle(model.getTitle());
+        song.setRatings(model.getRatings());
+        song.setRate(model.getRatings().stream().mapToInt(Integer::intValue).average());
+        return songRepository.save(song);
+    }
+
+
+    @Transactional
+    public String delete(Long id){
+        Song song = this.findById(id);
+        File file = new File(song.getFilePath());
+        file.delete();
+        songRepository.delete(song);
+        return "Song deleted";
+    }
+
 
 }
