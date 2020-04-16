@@ -52,7 +52,7 @@ public class PostService {
         post.setSong(song);
         post.setUser(user);
 
-        return post;
+        return postRepository.save(post);
     }
 
     @Transactional
@@ -62,7 +62,7 @@ public class PostService {
         post.setPostDescription(model.getDescription());
         post.setPostTitle(model.getTitle());
 
-        return post;
+        return postRepository.save(post);
     }
 
     @Transactional

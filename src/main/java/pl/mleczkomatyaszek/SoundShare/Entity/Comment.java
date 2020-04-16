@@ -3,37 +3,32 @@ package pl.mleczkomatyaszek.SoundShare.Entity;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
-@Table(name = "post")
+@Table(name = "comment")
 @Data
 @NoArgsConstructor
-public class Post {
+public class Comment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "post_id")
-    private Long post_id;
+    @Column(name = "comment_id")
+    private Long comment_id;
 
-    @Column(name = "post_title")
-    private String postTitle;
-
-    @Column(name = "post_description",columnDefinition = "LONGTEXT")
-    private String postDescription;
+    @Column(name = "content",columnDefinition = "LONGTEXT")
+    private String content;
 
     @ManyToOne(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
-    @JsonBackReference("user")
+    @JoinColumn(name = "user_id")
     private User user;
 
     @ManyToOne(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
-    private Song song;
+    @JoinColumn(name = "post")
+    private Post post;
 
-    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
-    @JsonBackReference("comments")
-    private List<Comment> comments = new ArrayList<>();
+
 
 }

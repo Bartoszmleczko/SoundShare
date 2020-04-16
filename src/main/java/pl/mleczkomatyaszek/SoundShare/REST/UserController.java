@@ -1,8 +1,10 @@
 package pl.mleczkomatyaszek.SoundShare.REST;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import pl.mleczkomatyaszek.SoundShare.Entity.Song;
 import pl.mleczkomatyaszek.SoundShare.Entity.User;
@@ -25,6 +27,16 @@ public class UserController {
         this.songService = songService;
     }
 
+    @GetMapping("/users")
+    public Page<User> findAllUsers(Pageable pageable){
+        return userService.findAll(pageable);
+    }
+
+    @GetMapping("/users/{id}")
+    public User findUser (@PathVariable Long id){
+        return userService.findById(id);
+    }
+
     @GetMapping("/users/{id}/songs")
     public List<Song> userSongs(@PathVariable Long id, Pageable pageable){
         User user = userService.findById(id);
@@ -33,7 +45,7 @@ public class UserController {
     }
 
 
-    @PostMapping("/users")
+    @PostMapping(value = "/users", consumes = MediaType.APPLICATION_JSON_VALUE)
     public User saveUser(@Valid @RequestBody User user){
         return userService.saveUser(user);
     }

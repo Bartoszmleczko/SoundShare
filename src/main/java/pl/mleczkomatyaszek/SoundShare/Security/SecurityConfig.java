@@ -32,7 +32,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .antMatchers(HttpMethod.POST,"/users").permitAll()
-                .antMatchers("/songs").hasAuthority("USER")
+                .antMatchers("/songs/**").hasAuthority("USER")
+                .antMatchers("/playlists/**").hasAuthority("USER")
+                .antMatchers("/posts/**").hasAuthority("USER")
+                .antMatchers("/comments/**").hasAuthority("USER")
+                .antMatchers("/relationships/**").hasAuthority("USER")
                 .and().csrf().disable().httpBasic()
                 .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     }

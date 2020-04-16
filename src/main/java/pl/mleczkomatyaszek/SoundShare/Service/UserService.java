@@ -1,5 +1,7 @@
 package pl.mleczkomatyaszek.SoundShare.Service;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import pl.mleczkomatyaszek.SoundShare.Entity.Role;
@@ -28,6 +30,11 @@ public class UserService {
     }
 
     @Transactional
+    public Page<User> findAll(Pageable pageable){
+        return userRepository.findAll(pageable);
+    }
+
+    @Transactional
     public User findByUsername(String username){
         return userRepository.findByUsername(username);
     }
@@ -47,5 +54,6 @@ public class UserService {
         return userRepository.save(user);
     }
 
+    //TODO: Delete user and all his songs including files attached
 
 }

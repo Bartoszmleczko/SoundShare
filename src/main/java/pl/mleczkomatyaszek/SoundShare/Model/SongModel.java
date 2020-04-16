@@ -18,4 +18,6 @@ public class SongModel {
 
     private List<Integer> ratings;
 
+    private List<Long> posts;
+
 }

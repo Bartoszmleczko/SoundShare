@@ -8,7 +8,7 @@ import pl.mleczkomatyaszek.SoundShare.Entity.Post;
 
 public interface PostRepository extends JpaRepository<Post, Long> {
 
-    @Query("select p from Post p where title like %?1%")
+    @Query("select p from Post p where postTitle like %?1%")
     public Page<Post> findAllByPostTitle(String title, Pageable pageable);
 
 }
