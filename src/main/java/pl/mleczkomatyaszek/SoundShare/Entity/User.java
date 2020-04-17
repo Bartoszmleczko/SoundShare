@@ -77,9 +77,13 @@ public class User {
 
     private List<Playlist> playlists = new ArrayList<>();
 
-    @OneToMany(mappedBy = "friend",cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH}, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "friend",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonBackReference("friends")
     public List<Relationship> friends = new ArrayList<>();
+
+    @OneToMany(mappedBy = "requester",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonBackReference("friends")
+    public List<Relationship> requests = new ArrayList<>();
 
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonBackReference("comments")

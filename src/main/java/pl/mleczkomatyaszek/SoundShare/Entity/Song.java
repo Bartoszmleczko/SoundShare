@@ -45,6 +45,10 @@ public class Song {
     @JsonBackReference
     private List<Post> posts = new ArrayList<>();
 
+    @ManyToMany(mappedBy = "songs")
+    @JsonBackReference
+    private List<Playlist> playlists;
+
     public void setRate(OptionalDouble average) {
         if(average.isPresent())
         this.rate = average.getAsDouble();

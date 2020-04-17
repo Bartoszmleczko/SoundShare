@@ -7,6 +7,7 @@ import pl.mleczkomatyaszek.SoundShare.Model.RelationshipModel;
 import pl.mleczkomatyaszek.SoundShare.Service.RelationshipService;
 
 import java.security.Principal;
+import java.util.List;
 
 @RestController
 public class RelationshipController {
@@ -16,6 +17,11 @@ public class RelationshipController {
     @Autowired
     public RelationshipController(RelationshipService relationshipService) {
         this.relationshipService = relationshipService;
+    }
+
+    @GetMapping("/relationships")
+    public List<Relationship> findAll(){
+        return relationshipService.findAll();
     }
 
     @GetMapping("/relationships/{id}")

@@ -40,7 +40,7 @@ public class UserController {
     @GetMapping("/users/{id}/songs")
     public List<Song> userSongs(@PathVariable Long id, Pageable pageable){
         User user = userService.findById(id);
-        return songService.findAll(null,pageable).stream().filter(x ->
+        return songService.findAll(java.util.Optional.of("_"),pageable).stream().filter(x ->
             x.getFilePath().contains(user.getUsername())).collect(Collectors.toList());
     }
 
@@ -50,5 +50,14 @@ public class UserController {
         return userService.saveUser(user);
     }
 
+    @DeleteMapping("/users/{id}")
+    public String deleteUser(@PathVariable Long id){
+        return userService.deleteUser(id);
+    }
+
+    @GetMapping("/users/{id}/relationships")
+    public List<User> findFriends(@PathVariable Long id){
+        return userService.findFriends(id);
+    }
 
 }

@@ -11,6 +11,7 @@ import pl.mleczkomatyaszek.SoundShare.Repository.RelationshipRepository;
 
 import javax.transaction.Transactional;
 import java.security.Principal;
+import java.util.List;
 
 @Service
 public class RelationshipService {
@@ -22,6 +23,11 @@ public class RelationshipService {
     public RelationshipService(RelationshipRepository relationshipRepository, UserService userService) {
         this.relationshipRepository = relationshipRepository;
         this.userService = userService;
+    }
+
+    @Transactional
+    public List<Relationship> findAll(){
+        return relationshipRepository.findAll();
     }
 
     @Transactional

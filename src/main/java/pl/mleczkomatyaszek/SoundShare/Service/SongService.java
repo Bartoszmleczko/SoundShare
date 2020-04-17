@@ -5,12 +5,14 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import pl.mleczkomatyaszek.SoundShare.Entity.Playlist;
 import pl.mleczkomatyaszek.SoundShare.Entity.Post;
 import pl.mleczkomatyaszek.SoundShare.Entity.Song;
 import pl.mleczkomatyaszek.SoundShare.Entity.User;
 import pl.mleczkomatyaszek.SoundShare.Exception.GenericIdNotFoundException;
 import pl.mleczkomatyaszek.SoundShare.Exception.WrongFileFormatException;
 import pl.mleczkomatyaszek.SoundShare.Model.SongModel;
+import pl.mleczkomatyaszek.SoundShare.Repository.PlaylistRepository;
 import pl.mleczkomatyaszek.SoundShare.Repository.PostRepository;
 import pl.mleczkomatyaszek.SoundShare.Repository.SongRepository;
 
@@ -19,6 +21,8 @@ import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.security.Principal;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -28,13 +32,15 @@ public class SongService {
     private final UserService userService;
     private final FileStorageService fileStorageService;
     private final PostRepository postRepository;
+    private final PlaylistRepository playlistRepository;
 
     @Autowired
-    public SongService(SongRepository songRepository, UserService userService, FileStorageService fileStorageService, PostRepository postRepository) {
+    public SongService(SongRepository songRepository, UserService userService, FileStorageService fileStorageService, PostRepository postRepository, PlaylistRepository playlistRepository) {
         this.songRepository = songRepository;
         this.userService = userService;
         this.fileStorageService = fileStorageService;
         this.postRepository = postRepository;
+        this.playlistRepository = playlistRepository;
     }
 
     @Transactional
@@ -83,6 +89,13 @@ public class SongService {
             postRepository.save(p);
         }
 
+        List<Playlist> playlists = song.getPlaylists();
+        List<Playlist> newPlaylists = new ArrayList<>();
+
+        for(int i =0 ; i<playlists.size();i++){
+            playlists.get(i).getSongs().remove(song);
+            playlistRepository.save(playlists.get(i));
+        }
         File file = new File(song.getFilePath());
         file.delete();
         songRepository.delete(song);
