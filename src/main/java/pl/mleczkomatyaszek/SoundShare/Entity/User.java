@@ -74,7 +74,6 @@ public class User {
     private List<Post> posts = new ArrayList<>();
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL,orphanRemoval = true, fetch = FetchType.LAZY)
-
     private List<Playlist> playlists = new ArrayList<>();
 
     @OneToMany(mappedBy = "friend",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
