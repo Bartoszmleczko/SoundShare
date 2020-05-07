@@ -30,15 +30,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
+        http.httpBasic().and().authorizeRequests()
                 .antMatchers(HttpMethod.POST,"/users").permitAll()
+                .antMatchers(HttpMethod.GET,"/users/**").hasAuthority("USER")
                 .antMatchers("/songs/**").hasAuthority("USER")
                 .antMatchers("/playlists/**").hasAuthority("USER")
                 .antMatchers("/posts/**").hasAuthority("USER")
                 .antMatchers("/comments/**").hasAuthority("USER")
                 .antMatchers("/relationships/**").hasAuthority("USER")
-                .and().csrf().disable().httpBasic()
-                .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+                .and().csrf().disable()
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     }
 
     @Bean

@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
+@CrossOrigin
 public class UserController {
 
     private final UserService userService;
@@ -32,9 +33,9 @@ public class UserController {
         return userService.findAll(pageable);
     }
 
-    @GetMapping("/users/{id}")
-    public User findUser (@PathVariable Long id){
-        return userService.findById(id);
+    @GetMapping("/users/{username}")
+    public User findUser (@PathVariable String username){
+        return userService.findByUsername(username);
     }
 
     @GetMapping("/users/{id}/songs")
