@@ -62,7 +62,6 @@ public class User {
     @Column(name = "email")
     private String email;
 
-
     @Column(name = "user_path")
     private String userPath;
 
@@ -71,18 +70,20 @@ public class User {
     private Set<Role> roles = new HashSet<>();
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL,orphanRemoval = true,fetch =FetchType.LAZY)
+    @JsonBackReference(value = "posts")
     private List<Post> posts = new ArrayList<>();
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL,orphanRemoval = true, fetch = FetchType.LAZY)
+    @JsonBackReference(value = "playlists")
     private List<Playlist> playlists = new ArrayList<>();
 
     @OneToMany(mappedBy = "friend",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JsonBackReference("friends")
-    public List<Relationship> friends = new ArrayList<>();
+    @JsonBackReference(value = "friends")
+    public List<Relationship> friends = new ArrayList<Relationship>();
 
     @OneToMany(mappedBy = "requester",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JsonBackReference("friends")
-    public List<Relationship> requests = new ArrayList<>();
+    @JsonBackReference(value = "requests")
+    public List<Relationship> requests = new ArrayList<Relationship>();
 
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonBackReference("comments")

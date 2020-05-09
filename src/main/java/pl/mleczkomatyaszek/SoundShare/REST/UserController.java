@@ -8,6 +8,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import pl.mleczkomatyaszek.SoundShare.Entity.Song;
 import pl.mleczkomatyaszek.SoundShare.Entity.User;
+import pl.mleczkomatyaszek.SoundShare.Model.UserModel;
 import pl.mleczkomatyaszek.SoundShare.Service.SongService;
 import pl.mleczkomatyaszek.SoundShare.Service.UserService;
 
@@ -45,10 +46,9 @@ public class UserController {
             x.getFilePath().contains(user.getUsername())).collect(Collectors.toList());
     }
 
-
-    @PostMapping(value = "/users", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public User saveUser(@Valid @RequestBody User user){
-        return userService.saveUser(user);
+    @PostMapping(value = "/users", consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
+    public User saveUser(@Valid @RequestBody UserModel userModel){
+        return userService.saveUser(userModel);
     }
 
     @DeleteMapping("/users/{id}")

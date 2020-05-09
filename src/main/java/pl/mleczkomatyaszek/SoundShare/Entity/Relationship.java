@@ -1,6 +1,8 @@
 package pl.mleczkomatyaszek.SoundShare.Entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -20,11 +22,14 @@ public class Relationship {
 
     @ManyToOne
     @JoinColumn(name = "requester_id")
-    @JsonBackReference
+    @JsonManagedReference(value = "requests")
+    @JsonIgnore
     private User requester;
 
     @ManyToOne
     @JoinColumn(name = "friend_id")
+    @JsonManagedReference(value = "friends")
+    @JsonIgnore
     private User  friend;
 
     @Column(name = "is_active")

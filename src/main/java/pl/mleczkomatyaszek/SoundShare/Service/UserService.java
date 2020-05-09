@@ -11,6 +11,7 @@ import pl.mleczkomatyaszek.SoundShare.Entity.Song;
 import pl.mleczkomatyaszek.SoundShare.Entity.User;
 import pl.mleczkomatyaszek.SoundShare.Exception.GenericIdNotFoundException;
 import pl.mleczkomatyaszek.SoundShare.Exception.UserAlreadyExists;
+import pl.mleczkomatyaszek.SoundShare.Model.UserModel;
 import pl.mleczkomatyaszek.SoundShare.Repository.*;
 
 import javax.transaction.Transactional;
@@ -60,10 +61,15 @@ public class UserService {
     }
 
     @Transactional
-    public User saveUser(User user){
-        if(this.findByUsername(user.getUsername())!=null)
+    public User saveUser(UserModel userModel){
+        User user = new User();
+        if(this.findByUsername(userModel.getUsername())!=null)
             throw new UserAlreadyExists();
-        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        user.setUsername(userModel.getUsername());
+        user.setPassword(bCryptPasswordEncoder.encode(userModel.getPassword()));
+        user.setFirstName(userModel.getFirstName());
+        user.setLastName(userModel.getLastName());
+        user.setEmail(userModel.getEmail());
         Role role = roleRepository.findByName("USER");
         user.setRoles(new HashSet<>(Arrays.asList(role)));
         fileStorageService.initDir(user.getUsername());
