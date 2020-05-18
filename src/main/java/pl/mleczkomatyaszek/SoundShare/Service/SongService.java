@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.multipart.MultipartFile;
 import pl.mleczkomatyaszek.SoundShare.Entity.Playlist;
 import pl.mleczkomatyaszek.SoundShare.Entity.Post;
@@ -25,6 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@CrossOrigin(allowedHeaders = "*", origins = "*")
 @Service
 public class SongService {
 
@@ -55,7 +57,7 @@ public class SongService {
 
 
     @Transactional
-    public Song save(MultipartFile file, String title, Principal principal){
+    public Song save(MultipartFile file, Principal principal){
 
         String suffix = file.getOriginalFilename().substring(file.getOriginalFilename().length()-4);
         if(!suffix.equals(".mp3") && !suffix.equals(".wav"))
@@ -64,7 +66,7 @@ public class SongService {
         User user = userService.findByUsername(principal.getName());
         fileStorageService.store(file,user.getUsername());
         Path path = Paths.get(user.getUserPath()+ File.separator + file.getOriginalFilename());
-        Song song = new Song(title,path.toString());
+        Song song = new Song("title",path.toString());
         return songRepository.save(song);
     }
 
