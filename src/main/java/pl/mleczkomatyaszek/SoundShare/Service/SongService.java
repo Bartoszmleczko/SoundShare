@@ -19,6 +19,8 @@ import pl.mleczkomatyaszek.SoundShare.Repository.SongRepository;
 
 import javax.transaction.Transactional;
 import java.io.File;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.security.Principal;
@@ -57,7 +59,7 @@ public class SongService {
 
 
     @Transactional
-    public Song save(MultipartFile file, Principal principal){
+    public Song save(MultipartFile file, Principal principal) throws MalformedURLException {
 
         String suffix = file.getOriginalFilename().substring(file.getOriginalFilename().length()-4);
         if(!suffix.equals(".mp3") && !suffix.equals(".wav"))
@@ -66,14 +68,16 @@ public class SongService {
         User user = userService.findByUsername(principal.getName());
         fileStorageService.store(file,user.getUsername());
         Path path = Paths.get(user.getUserPath()+ File.separator + file.getOriginalFilename());
-        Song song = new Song("title",path.toString());
+        String relPath =  path.toString().substring(path.toString().indexOf("media")+5);
+        String url = "http://127.0.0.1:8887" + relPath.replaceAll("\\\\","/");
+
+        Song song = new Song("title", url, path.toString());
         return songRepository.save(song);
     }
 
     @Transactional
     public Song edit(SongModel model){
         Song song = this.findById(model.getSongId());
-
 
         song.setTitle(model.getTitle());
         song.setRatings(model.getRatings());
@@ -98,7 +102,7 @@ public class SongService {
             playlists.get(i).getSongs().remove(song);
             playlistRepository.save(playlists.get(i));
         }
-        File file = new File(song.getFilePath());
+        File file = new File(song.getPath());
         file.delete();
         songRepository.delete(song);
         return "Song deleted";

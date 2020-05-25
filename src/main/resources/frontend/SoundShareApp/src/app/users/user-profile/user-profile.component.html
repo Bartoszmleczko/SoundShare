@@ -1,0 +1,13 @@
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="color: white;">
+    <a class="navbar-brand" [routerLink]="['/']" routerLinkActive="router-link-active" >Sound Share </a>
+    <div class="nav nav-pills">
+        <a class="nav-item nav-link"[routerLink]="['/posts']" routerLinkActive="router-link-active" >Posts</a>
+        <a class="nav-item nav-link" [routerLink]="['/songs']" routerLinkActive="router-link-active" >Songs</a>
+        <a class="nav-item nav-link">Friends</a>
+        <a (click)="logout()"  class="nav-item nav-link" style="cursor: pointer; color: blue;" >Logout</a>
+    </div>
+
+    </nav>
+
+
+<router-outlet></router-outlet>

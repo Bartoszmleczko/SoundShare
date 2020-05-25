@@ -1,0 +1,8 @@
+<p>post works!</p>
+<div class="row" style="color: white; text-align: center;">
+    <div class="col-md-3"></div>
+    <div *ngFor="let post of posts" class="bg-dark col-md-6">
+        <p>{{post.postTitle}}</p>
+        <button class="btn btn-secondary" [routerLink]="['/posts', post.post_id]" routerLinkActive="router-link-active" >See details</button>
+    </div>
+</div>

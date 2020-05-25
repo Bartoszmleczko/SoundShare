@@ -1,0 +1,19 @@
+<p>new-post works!</p>
+<div class="row">
+    <div class="col-md-12">
+        <form action="" class="group-form" [formGroup] = "postForm" >
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="username-span" style="background-color: darkseagreen">Username</span>
+                </div>
+                <input type="text" placeholder="Post Title" class="form-control" formControlName ="title" aria-describedby="username-span">    
+            </div>
+            <textarea formControlName="description">
+
+            </textarea>
+
+            <button class="btn btn-primary" type = "submit" (click) = "addPost()">Add Post</button>
+
+        </form>
+    </div>
+</div>

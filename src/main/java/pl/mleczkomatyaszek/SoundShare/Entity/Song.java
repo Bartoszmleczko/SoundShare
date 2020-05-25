@@ -33,6 +33,10 @@ public class Song {
     @Column(name = "file_path")
     private String filePath;
 
+    @NonNull
+    @Column(name = "path")
+    private String path;
+
     @Column(name = "rate")
     private Double rate;
 

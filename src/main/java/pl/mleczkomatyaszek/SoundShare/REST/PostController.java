@@ -5,13 +5,16 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
+import pl.mleczkomatyaszek.SoundShare.Entity.Comment;
 import pl.mleczkomatyaszek.SoundShare.Entity.Post;
 import pl.mleczkomatyaszek.SoundShare.Model.PostModel;
 import pl.mleczkomatyaszek.SoundShare.Service.PostService;
 
 import java.security.Principal;
+import java.util.List;
 import java.util.Optional;
 
+@CrossOrigin
 @RestController
 public class PostController {
 
@@ -23,8 +26,8 @@ public class PostController {
     }
 
     @GetMapping("/posts")
-    public Page<Post> findAllPosts(Optional<String> title, Pageable pageable){
-        return postService.findAllPosts(title,pageable);
+    public List<Post> findAllPosts(Optional<String> title, Pageable pageable){
+        return postService.findAllPosts(title);
     }
 
     @GetMapping("/posts/{id}")
@@ -34,7 +37,6 @@ public class PostController {
 
     @PostMapping("/posts")
     public Post savePost(@RequestBody PostModel post, Principal principal){
-
         return postService.save(post,principal);
     }
 
@@ -46,6 +48,11 @@ public class PostController {
     @DeleteMapping("/posts/{id}")
     public String deletePost(@PathVariable Long id){
         return postService.delete(id);
+    }
+
+    @GetMapping("/posts/{id}/comments")
+    public List<Comment> getComment(@PathVariable Long id){
+        return postService.findById(id).getComments();
     }
 
 }

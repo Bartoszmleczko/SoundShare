@@ -1,0 +1,20 @@
+<p>post-detail works!</p>
+<div class="row">
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
+        {{post.postTitle}}
+        {{post.postDescription}}
+        <div *ngFor="let comment of comments" class="bg-dark">
+            {{comment.content}}
+        </div>
+        <div class="group-form">
+            <form [formGroup]="commentForm" > 
+            
+                <textarea placeholder="Type your comment" formControlName="content">
+
+                </textarea>
+                <button class="btn btn-success" (click) = "addComment()"> Add comment</button>
+            </form>
+        </div>
+    </div>
+</div>

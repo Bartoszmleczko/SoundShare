@@ -7,10 +7,12 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import pl.mleczkomatyaszek.SoundShare.Entity.Post;
 
+import java.util.List;
+
 @CrossOrigin
 public interface PostRepository extends JpaRepository<Post, Long> {
 
     @Query("select p from Post p where postTitle like %?1%")
-    public Page<Post> findAllByPostTitle(String title, Pageable pageable);
+    public List<Post> findAllByPostTitle(String title);
 
 }

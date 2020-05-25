@@ -13,6 +13,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
+import pl.mleczkomatyaszek.SoundShare.Entity.Comment;
+import pl.mleczkomatyaszek.SoundShare.Entity.Post;
 import pl.mleczkomatyaszek.SoundShare.Entity.Song;
 import pl.mleczkomatyaszek.SoundShare.Entity.User;
 import pl.mleczkomatyaszek.SoundShare.Model.LoginRequest;
@@ -94,6 +96,12 @@ public class UserController {
     @GetMapping("/users/{id}/relationships")
     public List<User> findFriends(@PathVariable Long id){
         return userService.findFriends(id);
+    }
+
+    @PreAuthorize("hasAuthority('USER')")
+    @GetMapping("/users/{username}/posts")
+    public List<Post> getUsersPosts(@PathVariable String username){
+        return userService.findByUsername(username).getPosts();
     }
 
 }

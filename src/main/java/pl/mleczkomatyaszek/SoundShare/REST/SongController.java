@@ -26,6 +26,7 @@ import pl.mleczkomatyaszek.SoundShare.Service.SongService;
 import javax.print.attribute.standard.Media;
 import javax.servlet.MultipartConfigElement;
 import javax.servlet.http.HttpServletRequest;
+import java.net.MalformedURLException;
 import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
@@ -59,10 +60,8 @@ public class SongController {
 
     @PreAuthorize("hasAuthority('USER')")
     @PostMapping(value = "/songs", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public Song uploadSong(@RequestParam(value = "file")  MultipartFile file, Principal principal){
-        System.out.println(file.getOriginalFilename());
-           // return songService.save(file,principal);
-            return null;
+    public Song uploadSong(@RequestParam(value = "file")  MultipartFile file, Principal principal) throws MalformedURLException {
+            return songService.save(file,principal);
     }
     @PreAuthorize("hasAuthority('USER')")
     @PutMapping("/songs")

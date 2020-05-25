@@ -1,0 +1,44 @@
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-3"></div>
+        <div class="col-md-6 bg-dark">
+            <form [formGroup]="registerForm" (ngSubmit)="register()" class="group-form">
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="username-span" style="background-color: darkseagreen">Post Title</span>
+                    </div>
+                    <input type="text" placeholder="Username" class="form-control" formControlName ="username" aria-describedby="username-span">    
+                </div>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="password-span" style="background-color: beige;">Password</span>
+                    </div>
+                    <input type="password" placeholder="Password" class="form-control" formControlName="password" aria-describedby="password-span">    
+                </div>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="firstName-span">First Name</span>
+                    </div>
+                    <input type="text" placeholder="First Name" class="form-control" formControlName="firstName" aria-describedby="firstName-span">    
+                </div>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="lastName-span">Last Name</span>
+                    </div>
+                    <input type="text" placeholder="Last Name" class="form-control" formControlName="lastName"aria-describedby="lastName-span">    
+                </div>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="email-span">@E-mail</span>
+                    </div>
+                    <input type="text" placeholder="Email" class="form-control" formControlName="email" aria-describedby="email-span">    
+                </div>
+                <div class="text-center mb-2">
+                    <button class="btn btn-success" type="submit"> Register</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,17 @@
+<div class="container-fluid mt-2">
+    <div class="row" >
+        <span>Songs</span>
+        <a [routerLink]="['/songForm']" routerLinkActive="router-link-active"  class="btn btn-success"> Add new Song</a>
+    </div>
+    <div *ngFor="let song of songs; let i=index">
+        <p> <b>{{song.title}}</b></p>
+        <button class="btn btn-danger" (click) = "deleteSong(i)">Delete song</button>
+        <button class="btn btn-primary" (click) = "selectSong(i)">Create post with this song</button>
+        <audio controls>
+            <source src="{{song.filePath}}"/>
+          </audio>
+
+        </div>
+
+    
+</div>

@@ -13,6 +13,7 @@ import pl.mleczkomatyaszek.SoundShare.Repository.PostRepository;
 
 import javax.transaction.Transactional;
 import java.security.Principal;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -30,8 +31,8 @@ public class PostService {
     }
 
     @Transactional
-    public Page<Post> findAllPosts(Optional<String> title, Pageable pageable){
-        return postRepository.findAllByPostTitle(title.orElse("_"),pageable);
+    public List<Post> findAllPosts(Optional<String> title){
+        return postRepository.findAllByPostTitle(title.orElse("_"));
     }
 
     @Transactional
