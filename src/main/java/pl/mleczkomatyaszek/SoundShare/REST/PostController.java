@@ -7,6 +7,7 @@ import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 import pl.mleczkomatyaszek.SoundShare.Entity.Comment;
 import pl.mleczkomatyaszek.SoundShare.Entity.Post;
+import pl.mleczkomatyaszek.SoundShare.Model.LikeModel;
 import pl.mleczkomatyaszek.SoundShare.Model.PostModel;
 import pl.mleczkomatyaszek.SoundShare.Service.PostService;
 
@@ -53,6 +54,16 @@ public class PostController {
     @GetMapping("/posts/{id}/comments")
     public List<Comment> getComment(@PathVariable Long id){
         return postService.findById(id).getComments();
+    }
+
+    @PutMapping("/posts/likes")
+    public Post addLike(@RequestBody LikeModel model){
+        return this.postService.addLike(model);
+    }
+
+    @PutMapping("posts/dislikes")
+    public Post deleteLike(@RequestBody LikeModel model){
+        return this.postService.deleteLike(model);
     }
 
 }

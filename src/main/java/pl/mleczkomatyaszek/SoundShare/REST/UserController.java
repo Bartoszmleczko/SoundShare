@@ -13,10 +13,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
-import pl.mleczkomatyaszek.SoundShare.Entity.Comment;
-import pl.mleczkomatyaszek.SoundShare.Entity.Post;
-import pl.mleczkomatyaszek.SoundShare.Entity.Song;
-import pl.mleczkomatyaszek.SoundShare.Entity.User;
+import pl.mleczkomatyaszek.SoundShare.Entity.*;
 import pl.mleczkomatyaszek.SoundShare.Model.LoginRequest;
 import pl.mleczkomatyaszek.SoundShare.Model.LoginResponse;
 import pl.mleczkomatyaszek.SoundShare.Model.UserModel;
@@ -25,7 +22,9 @@ import pl.mleczkomatyaszek.SoundShare.Service.SongService;
 import pl.mleczkomatyaszek.SoundShare.Service.UserService;
 
 import javax.validation.Valid;
+import java.security.Principal;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
@@ -46,10 +45,10 @@ public class UserController {
         this.jwtUtils = jwtUtils;
     }
 
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('USER')")
     @GetMapping("/users")
-    public Page<User> findAllUsers(Pageable pageable){
-        return userService.findAll(pageable);
+    public List<User> findAllUsers(@RequestParam Optional<String> username, Principal principal){
+        return userService.findAll(username,principal);
     }
 
     @PreAuthorize("hasAuthority('USER')")
@@ -93,15 +92,33 @@ public class UserController {
     }
 
     @PreAuthorize("hasAuthority('USER')")
-    @GetMapping("/users/{id}/relationships")
-    public List<User> findFriends(@PathVariable Long id){
-        return userService.findFriends(id);
+    @GetMapping("/users/{username}/relationships")
+    public List<Relationship> findFriends(@PathVariable String username){
+        return userService.findFriends(username);
     }
 
     @PreAuthorize("hasAuthority('USER')")
     @GetMapping("/users/{username}/posts")
     public List<Post> getUsersPosts(@PathVariable String username){
         return userService.findByUsername(username).getPosts();
+    }
+
+    @PreAuthorize("hasAuthority('USER')")
+    @GetMapping("/users/{username}/requests")
+    public List<Relationship> getUserInvites(@PathVariable String username){
+        return userService.findByUsername(username).getRequests();
+    }
+
+    @PreAuthorize("hasAuthority('USER')")
+    @GetMapping("/users/{username}/friends")
+    public List<Relationship> getUserInvited(@PathVariable String username){
+        return userService.findByUsername(username).getFriends().stream().filter(x -> !x.isActive()).collect(Collectors.toList());
+    }
+
+    @PreAuthorize("hasAuthority('USER')")
+    @GetMapping("/users/{username}/friends/posts")
+    public List<Post> getUserFriendsPosts(@PathVariable String username){
+        return userService.findFriendsPosts(username);
     }
 
 }

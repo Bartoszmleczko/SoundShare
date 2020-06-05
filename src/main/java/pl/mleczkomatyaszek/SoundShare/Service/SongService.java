@@ -24,6 +24,7 @@ import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.security.Principal;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -59,7 +60,7 @@ public class SongService {
 
 
     @Transactional
-    public Song save(MultipartFile file, Principal principal) throws MalformedURLException {
+    public Song save(MultipartFile file,String title, String lyrics, Principal principal) throws MalformedURLException {
 
         String suffix = file.getOriginalFilename().substring(file.getOriginalFilename().length()-4);
         if(!suffix.equals(".mp3") && !suffix.equals(".wav"))
@@ -71,13 +72,14 @@ public class SongService {
         String relPath =  path.toString().substring(path.toString().indexOf("media")+5);
         String url = "http://127.0.0.1:8887" + relPath.replaceAll("\\\\","/");
 
-        Song song = new Song("title", url, path.toString());
+        Song song = new Song(title, url, path.toString(), lyrics ,LocalDateTime.now());
+
         return songRepository.save(song);
     }
 
     @Transactional
     public Song edit(SongModel model){
-        Song song = this.findById(model.getSongId());
+        Song song = this.findById(model.getSong_id());
 
         song.setTitle(model.getTitle());
         song.setRatings(model.getRatings());

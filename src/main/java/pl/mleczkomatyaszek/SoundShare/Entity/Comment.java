@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "comment")
@@ -21,6 +22,9 @@ public class Comment {
 
     @Column(name = "content",columnDefinition = "LONGTEXT")
     private String content;
+
+    @Column(name = "date")
+    private LocalDateTime date;
 
     @ManyToOne(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
     @JoinColumn(name = "user_id")

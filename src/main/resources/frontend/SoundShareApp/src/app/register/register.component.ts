@@ -27,7 +27,7 @@ export class RegisterComponent implements OnInit {
   }
 
   register() {
-    this.newUser = new User(this.registerForm.get('username').value,
+    this.newUser = new User(null,this.registerForm.get('username').value,
       this.registerForm.get('password').value,
       this.registerForm.get('firstName').value,
       this.registerForm.get('lastName').value,

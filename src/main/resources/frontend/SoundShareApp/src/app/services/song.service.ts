@@ -18,13 +18,18 @@ export class SongService {
   getSongs(){
     const username = this.tokenStorage.getUser().username;
     return this.httpClient.get<any>(API_URL + 'users/' + username + '/songs');
-    
   }
-  upload(file: File): Observable<HttpEvent<any>> {
+
+  getSongById(id){
+    return this.httpClient.get(API_URL + 'songs/' + id);
+  }
+
+  upload(file: File,title,lyrics): Observable<HttpEvent<any>> {
     const formData: FormData = new FormData();
 
     formData.append('file', file);
-
+    formData.append('title', title);
+    formData.append('lyrics', lyrics);
     const req = new HttpRequest('POST', API_URL+'songs', formData, {
       reportProgress: true,
       responseType: 'json'
@@ -35,6 +40,10 @@ export class SongService {
 
   deleteSong(id: number){
       return this.httpClient.delete(API_URL+'songs/' + id);
+  }
+
+  update(song){
+    return this.httpClient.put(API_URL + 'songs', song);
   }
 
 }

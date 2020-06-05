@@ -5,8 +5,12 @@
     </div>
     <div *ngFor="let song of songs; let i=index">
         <p> <b>{{song.title}}</b></p>
+        <p><b>{{song.date}}</b></p>
+        <p><b>{{song.rate}}</b></p>
         <button class="btn btn-danger" (click) = "deleteSong(i)">Delete song</button>
         <button class="btn btn-primary" (click) = "selectSong(i)">Create post with this song</button>
+        <ngb-rating [(rate)]="currentRate" (click) = "countRate(i,currentRate)" ></ngb-rating>
+        <a class="btn btn-secondary" [routerLink]="['/songs/edit', song.song_id]" routerLinkActive="router-link-active" >Edit Song</a>
         <audio controls>
             <source src="{{song.filePath}}"/>
           </audio>

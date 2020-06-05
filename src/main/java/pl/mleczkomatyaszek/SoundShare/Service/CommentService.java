@@ -14,6 +14,7 @@ import pl.mleczkomatyaszek.SoundShare.Repository.CommentRepository;
 
 import javax.transaction.Transactional;
 import java.security.Principal;
+import java.time.LocalDateTime;
 
 @Service
 public class CommentService {
@@ -49,6 +50,7 @@ public class CommentService {
         comment.setContent(model.getContent());
         comment.setUser(user);
         comment.setPost(post);
+        comment.setDate(LocalDateTime.now());
 
         return commentRepository.save(comment);
 
@@ -60,6 +62,7 @@ public class CommentService {
         Comment comment = new Comment();
         comment = this.findComment(model.getCommentId());
         comment.setContent(model.getContent());
+        comment.setDate(LocalDateTime.now());
         return commentRepository.save(comment);
 
     }

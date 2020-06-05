@@ -7,6 +7,8 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.util.HashSet;
+import java.util.Set;
 
 @Data
 @NoArgsConstructor
@@ -27,4 +29,6 @@ public class PostModel {
     @NotNull(message = "Post must contain song")
     @Min(value = 1,message = "Song id must be at least 1")
     private Long songId;
+
+    private Set<String> likes = new HashSet<>();
 }

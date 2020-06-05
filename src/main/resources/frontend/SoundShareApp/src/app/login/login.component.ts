@@ -34,7 +34,7 @@ export class LoginComponent implements OnInit {
       data => {
         this.tokenStorage.saveUser(data);
         this.tokenStorage.saveJwtToken(data.token);
-        this.router.navigate(['']);
+        this.router.navigate(['/wall']);
       }
     );
   }

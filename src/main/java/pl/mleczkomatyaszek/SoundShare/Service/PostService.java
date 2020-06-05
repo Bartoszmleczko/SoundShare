@@ -4,17 +4,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 import pl.mleczkomatyaszek.SoundShare.Entity.Post;
 import pl.mleczkomatyaszek.SoundShare.Entity.Song;
 import pl.mleczkomatyaszek.SoundShare.Entity.User;
 import pl.mleczkomatyaszek.SoundShare.Exception.GenericIdNotFoundException;
+import pl.mleczkomatyaszek.SoundShare.Model.LikeModel;
 import pl.mleczkomatyaszek.SoundShare.Model.PostModel;
 import pl.mleczkomatyaszek.SoundShare.Repository.PostRepository;
 
 import javax.transaction.Transactional;
 import java.security.Principal;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class PostService {
@@ -52,7 +56,7 @@ public class PostService {
         post.setPostDescription(model.getDescription());
         post.setSong(song);
         post.setUser(user);
-
+        post.setDate(LocalDateTime.now());
         return postRepository.save(post);
     }
 
@@ -62,7 +66,8 @@ public class PostService {
         Post post = this.findById(model.getPostId());
         post.setPostDescription(model.getDescription());
         post.setPostTitle(model.getTitle());
-
+        post.setDate(LocalDateTime.now());
+        post.setLikes(model.getLikes());
         return postRepository.save(post);
     }
 
@@ -72,7 +77,27 @@ public class PostService {
         post = this.findById(id);
         postRepository.delete(post);
         return "Post deleted";
+    }
 
+    @Transactional
+    public Post addLike(LikeModel model){
+        Post post = this.findById(model.getPostId());
+        User user = userService.findByUsername(model.getLike());
+        Set<String> likes = post.getLikes();
+        System.out.println(model.getLike());
+        likes.add(user.getUsername());
+        post.setLikes(likes);
+        return postRepository.save(post);
+    }
+
+    @Transactional
+    public Post deleteLike(LikeModel model){
+        Post post = this.findById(model.getPostId());
+        User user = userService.findByUsername(model.getLike());
+        Set<String> likes = post.getLikes();
+        likes.remove(user.getUsername());
+        post.setLikes(likes);
+        return postRepository.save(post);
     }
 
 }

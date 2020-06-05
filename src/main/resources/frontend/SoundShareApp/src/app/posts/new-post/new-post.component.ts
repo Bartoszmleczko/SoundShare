@@ -30,7 +30,8 @@ export class NewPostComponent implements OnInit {
   }
 
   addPost(){
-    const post = {title: this.postForm.get('title').value, description: this.postForm.get('description').value, songId: this.song.song_id};
+    const post = {title: this.postForm.get('title').value, description: this.postForm.get('description').value,
+     songId: this.song.song_id, likes: []};
     console.log(post);
     this.postService.addPost(post).subscribe(
       data => console.log(data)

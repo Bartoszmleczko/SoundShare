@@ -1,8 +1,14 @@
 <p>post works!</p>
 <div class="row" style="color: white; text-align: center;">
     <div class="col-md-3"></div>
-    <div *ngFor="let post of posts" class="bg-dark col-md-6">
+    <div  class="col-md-6">
+        <div *ngFor="let post of posts; let i=index;" class="bg-dark mb-2">
         <p>{{post.postTitle}}</p>
         <button class="btn btn-secondary" [routerLink]="['/posts', post.post_id]" routerLinkActive="router-link-active" >See details</button>
+        <a class="btn btn-primary" [routerLink]="['/posts/edit', post.post_id]" routerLinkActive="router-link-active">Edit Post</a>
+        <a class="btn btn-danger" (click) = "deletePost(i)">Delete Post</a>
+
+        </div>
+
     </div>
 </div>

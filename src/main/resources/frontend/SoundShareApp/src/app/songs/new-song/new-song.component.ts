@@ -17,7 +17,8 @@ export class NewSongComponent implements OnInit {
   currentFile: File;
   progress = 0;
   message = '';
-
+  title = '';
+  lyrics = '';
   fileInfos: Observable<any>;
 
 
@@ -38,7 +39,7 @@ export class NewSongComponent implements OnInit {
     this.progress = 0;
   
     this.currentFile = this.selectedFiles.item(0);
-    this.songService.upload(this.currentFile).subscribe(
+    this.songService.upload(this.currentFile,this.title, this.lyrics).subscribe(
       event => {
         if (event.type === HttpEventType.UploadProgress) {
           this.progress = Math.round(100 * event.loaded / event.total);

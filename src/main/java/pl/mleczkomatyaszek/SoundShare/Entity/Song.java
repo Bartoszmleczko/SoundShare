@@ -8,6 +8,8 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.OptionalDouble;
@@ -40,10 +42,17 @@ public class Song {
     @Column(name = "rate")
     private Double rate;
 
+    @NonNull
+    @Column(name = "lyrics",columnDefinition = "LONGTEXT")
+    private String lyrics;
 
     @Column(name = "ratings")
     @ElementCollection(targetClass=Integer.class)
     private List<Integer> ratings = new ArrayList<>();
+
+    @NonNull
+    @Column(name = "date")
+    private LocalDateTime date;
 
     @OneToMany(mappedBy = "song", cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
     @JsonBackReference

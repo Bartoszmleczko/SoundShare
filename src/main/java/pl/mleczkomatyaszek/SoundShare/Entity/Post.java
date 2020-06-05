@@ -6,8 +6,11 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "post")
@@ -26,6 +29,9 @@ public class Post {
     @Column(name = "post_description",columnDefinition = "LONGTEXT")
     private String postDescription;
 
+    @Column(name = "date")
+    private LocalDateTime date;
+
     @ManyToOne(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
     @JsonManagedReference(value = "posts")
     private User user;
@@ -37,4 +43,7 @@ public class Post {
     @JsonBackReference("comments")
     private List<Comment> comments = new ArrayList<>();
 
+    @Column(name = "likes")
+    @ElementCollection(targetClass=String.class)
+    private Set<String> likes = new HashSet<>();
 }

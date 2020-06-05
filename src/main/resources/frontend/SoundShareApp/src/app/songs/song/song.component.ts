@@ -14,7 +14,8 @@ import { Router } from '@angular/router';
 export class SongComponent implements OnInit {
 
 
-  songs: any[];
+  songs;
+  currentRate = [];
 
   constructor(private songService: SongService, private postService: PostService, private router: Router) { }
 
@@ -22,8 +23,6 @@ export class SongComponent implements OnInit {
     this.songService.getSongs().subscribe(
       data => this.songs = data
     );
-    console.log(this.songs);
-
   }
 
   
@@ -44,5 +43,14 @@ export class SongComponent implements OnInit {
     this.router.navigate(['/postsForm']);
   }
 
+  countRate(i,j) {
+    console.log(i + ' ' + j);
+    const song = this.songs[i];
+    song.ratings.push(this.currentRate);
+    console.log(song.song_id);
+    this.songService.update(song).subscribe(
+      data => this.songs[i] = data
+    );
+  }
 
 }

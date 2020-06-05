@@ -11,7 +11,7 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor
 public class RelationshipModel {
 
-    private Long relationshipId;
+    private Long relationship_id;
 
     @NotNull(message = "Relationship must contain ID of a friend")
     @Min(value = 1,message = "ID of friend must be 1")

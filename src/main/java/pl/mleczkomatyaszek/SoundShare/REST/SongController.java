@@ -60,8 +60,8 @@ public class SongController {
 
     @PreAuthorize("hasAuthority('USER')")
     @PostMapping(value = "/songs", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public Song uploadSong(@RequestParam(value = "file")  MultipartFile file, Principal principal) throws MalformedURLException {
-            return songService.save(file,principal);
+    public Song uploadSong(@RequestParam(value = "file")  MultipartFile file,@RequestParam("title") String title, @RequestParam("lyrics") String lyrics, Principal principal) throws MalformedURLException {
+            return songService.save(file,title,lyrics,principal);
     }
     @PreAuthorize("hasAuthority('USER')")
     @PutMapping("/songs")

@@ -15,13 +15,16 @@ import java.util.List;
 public class SongModel {
 
 
-    private Long songId;
+    private Long song_id;
 
     @NonNull
     @NotNull(message = "Title of song can't be null.")
     @NotEmpty(message = "Title of song can't be empty.")
     @NotBlank(message = "Title of song can't be blank.")
     private String title;
+
+    @NonNull
+    private String lyrics;
 
     private List<@Min(value = 1,message = "Song rate must be at least 1.") Integer> ratings;
 

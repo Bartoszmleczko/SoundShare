@@ -36,5 +36,27 @@ export class PostService {
   public addComment(comment){
     return this.httpClient.post(API_URL + 'comments', comment);
   }
+  public editPost(post){
+    return this.httpClient.put(API_URL + 'posts', post);
+  }
+  public deletePost(post_id){
+    return this.httpClient.delete(API_URL + 'posts/' + post_id);
+  }
+  public getFriendsPosts(username){
+    return this.httpClient.get(API_URL+'users/' + username + '/friends/posts');
+  }
+  public addLike(post_id){
+    const user = this.tokenStorage.getUser().username;
+    console.log(user);
+    const like = {postId: post_id, like: user};
+    return this.httpClient.put(API_URL + 'posts/likes', like);
+  }
+  public deleteLike(post_id){
+    const user = this.tokenStorage.getUser().username;
+    const dislike = {postId: post_id, like: user};
+    return this.httpClient.put(API_URL + 'posts/dislikes', dislike);
+  }
+
+
 
 }

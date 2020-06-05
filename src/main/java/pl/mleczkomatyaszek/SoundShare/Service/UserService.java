@@ -5,10 +5,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import pl.mleczkomatyaszek.SoundShare.Entity.Relationship;
-import pl.mleczkomatyaszek.SoundShare.Entity.Role;
-import pl.mleczkomatyaszek.SoundShare.Entity.Song;
-import pl.mleczkomatyaszek.SoundShare.Entity.User;
+import org.springframework.web.bind.annotation.PathVariable;
+import pl.mleczkomatyaszek.SoundShare.Entity.*;
 import pl.mleczkomatyaszek.SoundShare.Exception.GenericIdNotFoundException;
 import pl.mleczkomatyaszek.SoundShare.Exception.UserAlreadyExists;
 import pl.mleczkomatyaszek.SoundShare.Model.UserModel;
@@ -16,10 +14,8 @@ import pl.mleczkomatyaszek.SoundShare.Repository.*;
 
 import javax.transaction.Transactional;
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
+import java.security.Principal;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -46,8 +42,11 @@ public class UserService {
     }
 
     @Transactional
-    public Page<User> findAll(Pageable pageable){
-        return userRepository.findAll(pageable);
+    public List<User> findAll(Optional<String> username, Principal principal){
+        List<User> allUsers = userRepository.findAllByUsername(username.orElse("_"));
+        User u = this.findByUsername(principal.getName());
+        allUsers.remove(u);
+        return allUsers;
     }
 
     @Transactional
@@ -98,21 +97,33 @@ public class UserService {
     }
 
     @Transactional
-    public List<User> findFriends(Long id){
+    public List<Relationship> findFriends(String username){
 
-        User user = this.findById(id);
-        List<Relationship> isInvited = relationshipRepository.findAll().stream().filter(x -> x.getFriend().equals(user)).filter(x -> x.isActive()).collect(Collectors.toList());
-        List<User> users1 = new ArrayList<>();
-        for(Relationship r : isInvited){
-            users1.add(r.getFriend());
+        User user = this.findByUsername(username);
+        List<Relationship> friends = user.getFriends().stream().filter(x -> x.isActive()).collect(Collectors.toList());
+        List<Relationship> requests = user.getRequests().stream().filter(x -> x.isActive()).collect(Collectors.toList());
+        friends.addAll(requests);
+
+
+        return friends;
+    }
+
+    @Transactional
+    public List<Post> findFriendsPosts( String username){
+        User user = this.findByUsername(username);
+        List<Relationship> friends = user.getFriends().stream().filter(x -> x.isActive()).collect(Collectors.toList());
+        List<Post> post1 = new ArrayList<>();
+        for( Relationship r: friends){
+            post1.addAll(r.getRequester().getPosts());
         }
-        List<Relationship> isRequester = relationshipRepository.findAll().stream().filter(x -> x.getRequester().equals(user)).filter(x -> x.isActive()).collect(Collectors.toList());
-        for(Relationship r : isRequester){
-            users1.add(r.getRequester());
+        List<Relationship> requests = user.getRequests().stream().filter(x -> x.isActive()).collect(Collectors.toList());
+        for(Relationship r : requests){
+            post1.addAll(r.getFriend().getPosts());
         }
-        return users1;
-
-
+        post1.sort((o1, o2) -> {
+           return  -o1.getDate().compareTo(o2.getDate());
+        });
+        return post1;
     }
 
 }

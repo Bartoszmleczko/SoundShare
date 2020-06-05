@@ -49,7 +49,7 @@ public class RelationshipService {
     @Transactional
     public Relationship editRelationship(RelationshipModel model){
         Relationship relationship = new Relationship();
-        relationship = this.getRelationship(model.getRelationshipId());
+        relationship = this.getRelationship(model.getRelationship_id());
         relationship.setActive(model.isActive());
         return relationshipRepository.save(relationship);
     }

@@ -15,7 +15,6 @@ export class UserProfileComponent implements OnInit {
 
   ngOnInit() {
     console.log(sessionStorage);
-    
   }
 
   logout(){

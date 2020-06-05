@@ -14,7 +14,20 @@
   <label class="btn btn-default">
     <input type="file" (change)="selectFile($event)" />
   </label>
-  
+  <div class="input-group mb-3">
+    <div class="input-group-prepend">
+        <span class="input-group-text" id="username-span" style="background-color: darkseagreen">Song Title</span>
+    </div>
+    <input type="text" placeholder="Title" class="form-control" [(ngModel)] = "title" aria-describedby="username-span">    
+  </div>
+  <div class="input-group mb-3">
+    <div class="input-group-prepend">
+        <span class="input-group-text" id="username-span" style="background-color: darkseagreen">Lyrics</span>
+    </div>
+    <textarea  placeholder="Lyrics" [(ngModel)]="lyrics">
+
+    </textarea>  
+  </div>
   <button class="btn btn-success" [disabled]="!selectedFiles" (click)="upload()">
     Upload
   </button>
