@@ -6,6 +6,7 @@ import { pipe, throwError } from 'rxjs';
 import { DomSanitizer } from '@angular/platform-browser';
 import { PostService } from 'src/app/services/post.service';
 import { Router } from '@angular/router';
+import { TokenStorageService } from 'src/app/services/token-storage.service';
 @Component({
   selector: 'app-song',
   templateUrl: './song.component.html',
@@ -13,19 +14,31 @@ import { Router } from '@angular/router';
 })
 export class SongComponent implements OnInit {
 
-
   songs;
   currentRate = [];
+  isLikedByUser: boolean[] = [];
+  user;
 
-  constructor(private songService: SongService, private postService: PostService, private router: Router) { }
+  constructor(private songService: SongService, private postService: PostService, private router: Router,
+              private tokenStorage: TokenStorageService) { }
 
   ngOnInit() {
     this.songService.getSongs().subscribe(
-      data => this.songs = data
-    );
-  }
+      data => {
+        this.songs = data;
+        this.user = this.tokenStorage.getUser().username;
+        for(let i=0; i<this.songs.length; i++){
+          if(this.songs[i].likes.includes(this.user)){
+            this.isLikedByUser.push(true);
+            this.songs.filter
+          } else{
+            this.isLikedByUser.push(false);
+          }
+      }
+  });
+}
 
-  
+
   public deleteSong(id){
 
     const song = this.songs[id];
@@ -50,6 +63,26 @@ export class SongComponent implements OnInit {
     console.log(song.song_id);
     this.songService.update(song).subscribe(
       data => this.songs[i] = data
+    );
+  }
+
+  addLike(id){
+    const song_id = this.songs[id].song_id;
+    this.songService.addLike(song_id).subscribe(
+      data => {
+        this.isLikedByUser[id] = true;
+        console.log(data);
+      }
+    );  
+  }
+
+  deleteLike(id){
+    const song_id = this.songs[id].song_id;
+    this.songService.deleteLike(song_id).subscribe(
+      data => {
+        this.isLikedByUser[id] = false;
+        console.log(data);
+      }
     );
   }
 

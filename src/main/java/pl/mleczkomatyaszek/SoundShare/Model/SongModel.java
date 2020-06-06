@@ -7,7 +7,9 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Data
 @NoArgsConstructor
@@ -29,5 +31,7 @@ public class SongModel {
     private List<@Min(value = 1,message = "Song rate must be at least 1.") Integer> ratings;
 
     private List<Long> posts;
+
+    private Set<String> likes =new HashSet<>();
 
 }

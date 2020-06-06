@@ -46,6 +46,8 @@ public class UserService {
         List<User> allUsers = userRepository.findAllByUsername(username.orElse("_"));
         User u = this.findByUsername(principal.getName());
         allUsers.remove(u);
+        List<User> friends = this.findFriends(u.getUsername());
+        allUsers.removeAll(friends);
         return allUsers;
     }
 
@@ -97,15 +99,19 @@ public class UserService {
     }
 
     @Transactional
-    public List<Relationship> findFriends(String username){
+    public List<User> findFriends(String username){
 
         User user = this.findByUsername(username);
         List<Relationship> friends = user.getFriends().stream().filter(x -> x.isActive()).collect(Collectors.toList());
+        List<User> users = new ArrayList<>();
+        for( Relationship r: friends){
+            users.add(r.getRequester());
+        }
         List<Relationship> requests = user.getRequests().stream().filter(x -> x.isActive()).collect(Collectors.toList());
-        friends.addAll(requests);
-
-
-        return friends;
+        for( Relationship r:requests) {
+            users.add(r.getFriend());
+        }
+        return users;
     }
 
     @Transactional

@@ -46,4 +46,16 @@ export class SongService {
     return this.httpClient.put(API_URL + 'songs', song);
   }
 
+  public addLike(song_id){
+    const user = this.tokenStorage.getUser().username;
+    console.log(user);
+    const like = {postId: song_id, like: user};
+    return this.httpClient.put(API_URL + 'songs/likes', like);
+  }
+  public deleteLike(song_id){
+    const user = this.tokenStorage.getUser().username;
+    const dislike = {postId: song_id, like: user};
+    return this.httpClient.put(API_URL + 'songs/dislikes', dislike);
+  }
+
 }

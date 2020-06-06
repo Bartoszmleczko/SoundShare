@@ -10,9 +10,7 @@ import lombok.RequiredArgsConstructor;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.OptionalDouble;
+import java.util.*;
 
 @Entity
 @Table(name = "song")
@@ -53,6 +51,10 @@ public class Song {
     @NonNull
     @Column(name = "date")
     private LocalDateTime date;
+
+    @Column(name = "likes")
+    @ElementCollection(targetClass = String.class)
+    private Set<String> likes = new HashSet<>();
 
     @OneToMany(mappedBy = "song", cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
     @JsonBackReference

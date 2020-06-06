@@ -18,6 +18,7 @@ import org.springframework.web.multipart.support.MultipartFilter;
 import org.springframework.web.multipart.support.StandardServletMultipartResolver;
 import pl.mleczkomatyaszek.SoundShare.Entity.Song;
 import pl.mleczkomatyaszek.SoundShare.Exception.GenericIdNotFoundException;
+import pl.mleczkomatyaszek.SoundShare.Model.LikeModel;
 import pl.mleczkomatyaszek.SoundShare.Model.SongModel;
 import pl.mleczkomatyaszek.SoundShare.Repository.SongRepository;
 import pl.mleczkomatyaszek.SoundShare.Service.FileStorageService;
@@ -73,6 +74,18 @@ public class SongController {
     @DeleteMapping("/songs/{id}")
     public String delete(@PathVariable Long id){
         return songService.delete(id);
+    }
+
+    @PreAuthorize("hasAuthority('USER')")
+    @PutMapping("/songs/likes")
+    public Song addLike(@RequestBody LikeModel model){
+        return  songService.addLike(model);
+    }
+
+    @PreAuthorize("hasAuthority('USER')")
+    @PutMapping("/songs/dislikes")
+    public Song deleteLike(@RequestBody LikeModel model){
+        return  songService.deleteLike(model);
     }
 
 

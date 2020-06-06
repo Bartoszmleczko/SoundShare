@@ -84,7 +84,6 @@ public class PostService {
         Post post = this.findById(model.getPostId());
         User user = userService.findByUsername(model.getLike());
         Set<String> likes = post.getLikes();
-        System.out.println(model.getLike());
         likes.add(user.getUsername());
         post.setLikes(likes);
         return postRepository.save(post);

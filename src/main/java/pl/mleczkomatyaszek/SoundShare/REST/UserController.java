@@ -93,7 +93,7 @@ public class UserController {
 
     @PreAuthorize("hasAuthority('USER')")
     @GetMapping("/users/{username}/relationships")
-    public List<Relationship> findFriends(@PathVariable String username){
+    public List<User> findFriends(@PathVariable String username){
         return userService.findFriends(username);
     }
 

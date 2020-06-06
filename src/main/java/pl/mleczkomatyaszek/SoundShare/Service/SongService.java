@@ -12,6 +12,7 @@ import pl.mleczkomatyaszek.SoundShare.Entity.Song;
 import pl.mleczkomatyaszek.SoundShare.Entity.User;
 import pl.mleczkomatyaszek.SoundShare.Exception.GenericIdNotFoundException;
 import pl.mleczkomatyaszek.SoundShare.Exception.WrongFileFormatException;
+import pl.mleczkomatyaszek.SoundShare.Model.LikeModel;
 import pl.mleczkomatyaszek.SoundShare.Model.SongModel;
 import pl.mleczkomatyaszek.SoundShare.Repository.PlaylistRepository;
 import pl.mleczkomatyaszek.SoundShare.Repository.PostRepository;
@@ -28,6 +29,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @CrossOrigin(allowedHeaders = "*", origins = "*")
 @Service
@@ -110,5 +112,20 @@ public class SongService {
         return "Song deleted";
     }
 
+    public Song addLike(LikeModel model){
+        Song song = this.findById(model.getPostId());
+        Set<String> likes = song.getLikes();
+        likes.add(model.getLike());
+        song.setLikes(likes);
+        return songRepository.save(song);
+    }
+
+    public Song deleteLike(LikeModel model){
+        Song song = this.findById(model.getPostId());
+        Set<String> likes = song.getLikes();
+        likes.remove(model.getLike());
+        song.setLikes(likes);
+        return songRepository.save(song);
+    }
 
 }
