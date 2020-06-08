@@ -24,12 +24,13 @@ export class SongService {
     return this.httpClient.get(API_URL + 'songs/' + id);
   }
 
-  upload(file: File,title,lyrics): Observable<HttpEvent<any>> {
+  upload(file: File, img: File, title,lyrics): Observable<HttpEvent<any>> {
     const formData: FormData = new FormData();
 
     formData.append('file', file);
     formData.append('title', title);
     formData.append('lyrics', lyrics);
+    formData.append('img', img);
     const req = new HttpRequest('POST', API_URL+'songs', formData, {
       reportProgress: true,
       responseType: 'json'

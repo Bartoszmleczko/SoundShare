@@ -6,6 +6,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.multipart.MultipartFile;
 import pl.mleczkomatyaszek.SoundShare.Entity.*;
 import pl.mleczkomatyaszek.SoundShare.Exception.GenericIdNotFoundException;
 import pl.mleczkomatyaszek.SoundShare.Exception.UserAlreadyExists;
@@ -14,6 +15,8 @@ import pl.mleczkomatyaszek.SoundShare.Repository.*;
 
 import javax.transaction.Transactional;
 import java.io.File;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.security.Principal;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -78,6 +81,19 @@ public class UserService {
         return userRepository.save(user);
     }
 
+    @Transactional
+    public String editUser(MultipartFile img, Principal principal) {
+        String username = principal.getName();
+        User user = this.findByUsername(username);
+        Path imgPath = Paths.get(user.getUserPath()+ File.separator + img.getOriginalFilename());
+        String relPath2 = imgPath.toString().substring(imgPath.toString().indexOf("media")+5);
+        String url2 = "http://127.0.0.1:8887" + relPath2.replaceAll("\\\\","/");
+        user.setImgUrl(url2);
+        user.setImgPath(imgPath.toString());
+        fileStorageService.store(img,username);
+        userRepository.save(user);
+        return user.getImgUrl();
+    }
 
     @Transactional
     public String deleteUser(Long id){

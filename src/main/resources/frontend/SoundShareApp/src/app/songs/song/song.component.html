@@ -7,6 +7,7 @@
         <p> <b>{{song.title}}</b></p>
         <p><b>{{song.date}}</b></p>
         <p><b>{{song.rate}}</b></p>
+        <img src="{{song.imgPath}}" *ngIf="song.imgPath"/>
         <button class="btn btn-danger" (click) = "deleteSong(i)">Delete song</button>
         <button class="btn btn-primary" (click) = "selectSong(i)">Create post with this song</button>
         <button class="btn btn-success" (click) = "addLike(i)" *ngIf="!isLikedByUser[i]">Like Song</button>

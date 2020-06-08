@@ -65,6 +65,12 @@ public class User {
     @Column(name = "user_path")
     private String userPath;
 
+    @Column(name = "img_url")
+    private String imgUrl;
+
+    @Column(name = "img_path")
+    private String imgPath;
+
     @ManyToMany(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH}, fetch = FetchType.LAZY)
     @JoinTable(name = "user_roles",joinColumns = @JoinColumn(name = "user_id"),inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();

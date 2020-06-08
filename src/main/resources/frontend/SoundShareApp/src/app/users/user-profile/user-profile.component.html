@@ -4,10 +4,16 @@
         <a class="nav-item nav-link"[routerLink]="['/posts']" routerLinkActive="router-link-active" >Posts</a>
         <a class="nav-item nav-link" [routerLink]="['/songs']" routerLinkActive="router-link-active" >Songs</a>
         <a class="nav-item nav-link" [routerLink]="['/friends']" routerLinkActive="router-link-active" >Friends</a>
+        <a class="nav-item nav-link" [routerLink]="['/profile']" routerLinkActive="router-link-active" >Profile</a>
         <a (click)="logout()"  class="nav-item nav-link" style="cursor: pointer; color: blue;" >Logout</a>
     </div>
 
     </nav>
 
+<div class="container">
 
 <router-outlet></router-outlet>
+
+</div>
+
+

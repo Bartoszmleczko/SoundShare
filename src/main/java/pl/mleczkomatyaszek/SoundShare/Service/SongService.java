@@ -6,6 +6,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import pl.mleczkomatyaszek.SoundShare.Entity.Playlist;
 import pl.mleczkomatyaszek.SoundShare.Entity.Post;
 import pl.mleczkomatyaszek.SoundShare.Entity.Song;
@@ -17,7 +18,7 @@ import pl.mleczkomatyaszek.SoundShare.Model.SongModel;
 import pl.mleczkomatyaszek.SoundShare.Repository.PlaylistRepository;
 import pl.mleczkomatyaszek.SoundShare.Repository.PostRepository;
 import pl.mleczkomatyaszek.SoundShare.Repository.SongRepository;
-
+import org.springframework.mock.web.MockMultipartFile;
 import javax.transaction.Transactional;
 import java.io.File;
 import java.net.MalformedURLException;
@@ -62,19 +63,26 @@ public class SongService {
 
 
     @Transactional
-    public Song save(MultipartFile file,String title, String lyrics, Principal principal) throws MalformedURLException {
+    public Song save(MultipartFile file,String title, String lyrics, MultipartFile img, Principal principal) throws MalformedURLException {
 
         String suffix = file.getOriginalFilename().substring(file.getOriginalFilename().length()-4);
         if(!suffix.equals(".mp3") && !suffix.equals(".wav"))
             throw new WrongFileFormatException();
 
+        String suffix2 = img.getOriginalFilename().substring(img.getOriginalFilename().length()-4);
+        if(!suffix2.equals(".jpg") && !suffix2.equals(".png"))
+            throw new WrongFileFormatException();
+
         User user = userService.findByUsername(principal.getName());
         fileStorageService.store(file,user.getUsername());
+        fileStorageService.store(img,user.getUsername());
         Path path = Paths.get(user.getUserPath()+ File.separator + file.getOriginalFilename());
+        Path imgPath = Paths.get(user.getUserPath()+ File.separator + img.getOriginalFilename());
         String relPath =  path.toString().substring(path.toString().indexOf("media")+5);
+        String relPath2 = imgPath.toString().substring(imgPath.toString().indexOf("media")+5);
         String url = "http://127.0.0.1:8887" + relPath.replaceAll("\\\\","/");
-
-        Song song = new Song(title, url, path.toString(), lyrics ,LocalDateTime.now());
+        String url2 = "http://127.0.0.1:8887" + relPath2.replaceAll("\\\\","/");
+        Song song = new Song(title, url, path.toString(), lyrics ,LocalDateTime.now(),url2,imgPath.toString());
 
         return songRepository.save(song);
     }
@@ -108,6 +116,8 @@ public class SongService {
         }
         File file = new File(song.getPath());
         file.delete();
+        File img = new File(song.getImgFullPath());
+        img.delete();
         songRepository.delete(song);
         return "Song deleted";
     }

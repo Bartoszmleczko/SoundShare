@@ -14,8 +14,11 @@ import { Observable } from 'rxjs';
 })
 export class NewSongComponent implements OnInit {
   selectedFiles: FileList;
+  selectedFiles2: FileList;
   currentFile: File;
   progress = 0;
+  progress2 = 0;
+  currentFile2: File;
   message = '';
   title = '';
   lyrics = '';
@@ -33,24 +36,30 @@ export class NewSongComponent implements OnInit {
   selectFile(event) {
     this.selectedFiles = event.target.files;
   }
-
+  selectFile2(event) {
+    this.selectedFiles2 = event.target.files;
+  }
 
   upload() {
     this.progress = 0;
   
     this.currentFile = this.selectedFiles.item(0);
-    this.songService.upload(this.currentFile,this.title, this.lyrics).subscribe(
+    this.currentFile2 = this.selectedFiles2.item(0);
+    this.songService.upload(this.currentFile, this.currentFile2, this.title, this.lyrics).subscribe(
       event => {
         if (event.type === HttpEventType.UploadProgress) {
           this.progress = Math.round(100 * event.loaded / event.total);
+          this.progress2 = Math.round(100 * event.loaded / event.total);
         } else if (event instanceof HttpResponse) {
           console.log(event);
         }
       },
       err => {
         this.progress = 0;
+        this.progress2 = 0;
         this.message = 'Could not upload the file!';
         this.currentFile = undefined;
+        this.currentFile2 = undefined;
       });
   
     this.selectedFiles = undefined;

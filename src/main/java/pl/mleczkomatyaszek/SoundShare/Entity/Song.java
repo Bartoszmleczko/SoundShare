@@ -52,6 +52,14 @@ public class Song {
     @Column(name = "date")
     private LocalDateTime date;
 
+    @NonNull
+    @Column(name = "img_path")
+    private String imgPath;
+
+    @NonNull
+    @Column(name = "img_full_path")
+    private String imgFullPath;
+
     @Column(name = "likes")
     @ElementCollection(targetClass = String.class)
     private Set<String> likes = new HashSet<>();

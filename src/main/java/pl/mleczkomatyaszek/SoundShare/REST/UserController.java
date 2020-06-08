@@ -13,6 +13,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import pl.mleczkomatyaszek.SoundShare.Entity.*;
 import pl.mleczkomatyaszek.SoundShare.Model.LoginRequest;
 import pl.mleczkomatyaszek.SoundShare.Model.LoginResponse;
@@ -101,6 +102,12 @@ public class UserController {
     @GetMapping("/users/{username}/posts")
     public List<Post> getUsersPosts(@PathVariable String username){
         return userService.findByUsername(username).getPosts();
+    }
+
+    @PreAuthorize("hasAuthority('USER')")
+    @PostMapping("/users/img")
+    public String setImage(@RequestParam MultipartFile img, Principal principal){
+        return userService.editUser(img,principal);
     }
 
     @PreAuthorize("hasAuthority('USER')")

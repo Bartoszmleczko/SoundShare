@@ -39,19 +39,18 @@ public class FileStorageService {
         }
 
 
-    public void store (MultipartFile file,String name){
+    public void store (MultipartFile file, String name){
         String filename = StringUtils.cleanPath(file.getOriginalFilename());
 
-        if(file.isEmpty())
+        if(file.isEmpty() )
             throw new RuntimeException("Failed to store empty file" + filename);
 
-        if(filename.contains(".."))
+        if(filename.contains("..") )
             throw new RuntimeException("Given filename is not valid " + filename);
 
         try (InputStream inputStream = file.getInputStream()) {
 
             Path path2 = Paths.get(this.path);
-
 
             Files.copy(inputStream,path2.resolve(name).resolve(filename), StandardCopyOption.REPLACE_EXISTING);
 

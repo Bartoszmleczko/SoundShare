@@ -30,6 +30,7 @@ import { UserDetailComponent } from './users/user-detail/user-detail.component';
 import { PostEditComponent } from './posts/post-edit/post-edit.component';
 import { SongEditComponent } from './songs/song-edit/song-edit.component';
 import { WallComponent } from './users/wall/wall.component';
+import { EditUserComponent } from './users/edit-user/edit-user.component';
 
 const appRoutes: Routes =[
   {path: 'register', component: RegisterComponent},
@@ -44,7 +45,8 @@ const appRoutes: Routes =[
     {path: 'posts/:id', component: PostDetailComponent, canActivate: [AuthGuardService], data: {roles: 'USER'}},
     {path: 'posts/edit/:id', component: PostEditComponent, canActivate: [AuthGuardService], data: {roles: 'USER'}},
     {path: 'friends', component: FriendsListComponent, canActivate: [AuthGuardService], data: {roles: 'USER'}},
-    {path: 'users/:username', component: UserDetailComponent, canActivate: [AuthGuardService], data: {roles: 'USER'}}
+    {path: 'users/:username', component: UserDetailComponent, canActivate: [AuthGuardService], data: {roles: 'USER'}},
+    {path: 'profile', component: EditUserComponent, canActivate: [AuthGuardService], data: {roles: 'USER'}}
   ]
   }
 ];
@@ -65,7 +67,8 @@ const appRoutes: Routes =[
     UserDetailComponent,
     PostEditComponent,
     SongEditComponent,
-    WallComponent
+    WallComponent,
+    EditUserComponent
   ],
   imports: [
     BrowserModule,
