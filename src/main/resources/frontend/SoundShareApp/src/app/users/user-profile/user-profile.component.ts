@@ -19,6 +19,7 @@ export class UserProfileComponent implements OnInit {
 
   logout(){
     this.tokenStorage.signOut();
+    this.tokenStorage.getUser();
     this.router.navigate(['/login']);
   }
 

@@ -18,7 +18,7 @@ export class AuthGuardService implements CanActivate{
 
           return true;
         }
-
+        window.sessionStorage.clear();
         this.router.navigate(['/login']);
       return true;
   }

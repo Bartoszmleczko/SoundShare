@@ -10,10 +10,10 @@
     </nav>
 </div>
 
-<div class="container-fluid">
+<div class="container-fluid ">
     <div class="row">
     <div class="col-sm-3"></div>
-    <div class="col-md-6 bg-dark" style="color: white;">
+    <div class="col-md-6 bg-dark " style="color: white;">
                     <h2 class="text-center mt-2">Login</h2>
                     <hr class="hr-white">
     <form [formGroup]="userForm" (ngSubmit) = "authenticate()" class="form-group" >
@@ -32,7 +32,7 @@
             <input type="password" placeholder="password" class="form-control" formControlName="password" aria-describedby="password-span">
         </div>
         <div class="text-center mb-3">
-            <button type="submit" class="btn btn-primary btn-lg mr-2" >Save</button>
+            <button type="submit" class="btn btn-primary btn-lg mr-2" >Login</button>
             <button type="button" class="btn btn-success btn-lg ml-2" [routerLink]="['/register']">Register</button>            
         </div>
     </form>
