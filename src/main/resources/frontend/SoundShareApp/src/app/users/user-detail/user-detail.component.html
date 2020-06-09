@@ -1,0 +1,15 @@
+<div class="row" *ngIf="isDataAvailable">
+
+    <div class="col-12 text-center">
+        {{clickedUser.username}}
+
+
+        <div *ngFor="let friend of friends">
+            {{friend.username}}
+        </div>
+    </div>
+
+    <span *ngIf="isUserAFriend"> You are friend to this user</span>
+    
+    <button class="btn btn-success" (click) = "invite()" [disabled] =  "isUserARequester || isUserInvited" *ngIf="!isUserAFriend">Invite User</button>
+</div>

@@ -1,0 +1,16 @@
+
+<div class="row" *ngIf="isDataLoaded">
+    <input type="text" (keyup) = "getUsers($event)">
+</div>
+
+    <div *ngFor="let user of users">
+
+        <div class="row mb-2">
+        <div class="mr-1">{{user.username}}</div>  
+        <a class="btn btn-primary" [routerLink]="['/users',user.username]" routerLinkActive="router-link-active" >View Profile</a>          
+        </div>
+
+
+
+
+</div>

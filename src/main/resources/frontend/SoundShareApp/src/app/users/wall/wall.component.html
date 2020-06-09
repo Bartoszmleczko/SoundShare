@@ -1,0 +1,22 @@
+<div class="row" *ngIf="postsLoaded">
+    <div class="col-md-12 text-center">
+        <h2>Your Friends Posts</h2>
+        <div *ngFor="let post of wallPosts; let i = index;">
+            <div class="bg-dark mb-4 mt-2 text-center" style="color: white;">
+                <h5>{{post.postTitle}} </h5>
+            
+            <span>
+                {{post.user.username}} 
+            </span>
+            <span>
+              {{post.date | date: 'dd.MM.yyyy HH:m'}}  
+            </span>
+            <br>
+            <a  class="btn btn-primary" [routerLink]="['/posts', post.post_id]" routerLinkActive="router-link-active" >See details</a>
+            <button class="btn btn-success" (click) = "like(i)" *ngIf="!isLikedByUser[i]">Like Post</button>
+            <button class="btn btn-danger" (click) = "dislike(i)" *ngIf="isLikedByUser[i]">Dislike Post</button>
+            </div>
+            
+        </div>
+    </div>
+</div>
