@@ -128,4 +128,5 @@ public class UserController {
         return userService.findFriendsPosts(username);
     }
 
+
 }
