@@ -1,0 +1,52 @@
+img {
+    width: 200px;
+    height: 200px;
+}
+
+.cards{
+    background-color: gray;
+    margin-bottom: 50px;
+    width: 100%;
+  
+}
+
+.title{
+    text-align: center;
+
+}
+
+.like{
+    width: 30px;
+    height: 40px;
+}
+
+.player{
+    background-color: rgba(174, 236, 226, 0.534);
+    
+    
+}
+
+
+.audio{
+    
+    padding-left: 40px;
+    padding-top: 15px;
+}
+
+.container{
+    width: 60%;
+}
+
+.data {
+    text-align: center;
+}
+
+*:focus {
+    outline: 0;
+}
+
+.menusong{
+    margin-top: 5px;
+    margin-left: 5px;
+   
+}

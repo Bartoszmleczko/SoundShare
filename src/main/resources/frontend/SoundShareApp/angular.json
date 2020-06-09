@@ -125,5 +125,8 @@
       }
     }
   },
-  "defaultProject": "SoundShareApp"
+  "defaultProject": "SoundShareApp",
+  "cli": {
+    "analytics": "7849ce32-af33-4b63-9cc6-4408fc9c3afc"
+  }
 }
