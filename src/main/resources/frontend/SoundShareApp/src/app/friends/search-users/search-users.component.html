@@ -1,16 +1,37 @@
 
-<div class="row" *ngIf="isDataLoaded">
-    <input type="text" (keyup) = "getUsers($event)">
-</div>
-
-    <div *ngFor="let user of users">
-
-        <div class="row mb-2">
-        <div class="mr-1">{{user.username}}</div>  
-        <a class="btn btn-primary" [routerLink]="['/users',user.username]" routerLinkActive="router-link-active" >View Profile</a>          
+<div *ngIf="isDataLoaded" class=" mt-2 pb-5" style="background-color: rgba(1, 23, 47,0.8)" >
+        <div>
+            <h4 style="color: white;">Search Users</h4>
         </div>
+    <div class="row d-flex justify-content-center mt-2" >
+     <input type="text" (keyup) = "getUsers($event)" class="search">
+     <button type="submit"><i class="fa fa-search"></i></button>       
+    </div>
 
+    <div *ngFor="let user of users " class="mt-3" style="background-color: slategray; width: 80%; margin-left: 10%; " >
 
+        <div class="row">
+            <div class="col-sm-5 ">
+                <img src="{{user.imgUrl}}" class="img-fluid img-thumbnail" style="width:200px; height:200px;" *ngIf="user.imgUrl"/>
+            </div>
 
+            <div class="col-sm-6" style="font-size: large;">
+                   
+                <div class="mt-2">
+                   <b>Username: </b> {{user.username}}                         
+                </div>
+
+                <div class="mt-2">
+                  <b>First Name: </b> {{user.firstName}}                        
+                </div>
+             <div class="mt-2">
+                  <b>Last Name: </b> {{user.lastName}}                     
+             </div>
+
+                <a class="btn btn-primary mt-3" [routerLink]="['/users',user.username]" routerLinkActive="router-link-active" >View Profile</a>   
+             </div>
+       
+        </div>
+    </div>
 
 </div>

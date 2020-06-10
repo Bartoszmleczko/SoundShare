@@ -20,6 +20,10 @@ export class SongService {
     return this.httpClient.get<any>(API_URL + 'users/' + username + '/songs');
   }
 
+  getSongsFromUser(username){
+    return this.httpClient.get<any>(API_URL + 'users/' + username + '/songs');
+  }
+
   getSongById(id){
     return this.httpClient.get(API_URL + 'songs/' + id);
   }

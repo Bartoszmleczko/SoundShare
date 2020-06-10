@@ -23,10 +23,16 @@ export class PostService {
   public addPost(post){
       return this.httpClient.post(API_URL + 'posts', post);
   }
+
   public getUsersPosts(){
     const user = this.tokenStorage.getUser();
     return this.httpClient.get(API_URL + 'users/' + user.username + '/posts');
   }
+
+  public getPosts(username){
+    return this.httpClient.get(API_URL + 'users/' + username + '/posts');
+  }
+
   public getPost(id){
     return this.httpClient.get(API_URL + 'posts/' + id);
   }

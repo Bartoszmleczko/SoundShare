@@ -1,34 +1,74 @@
 
 <div class="row">
-    <div class="col-lg-3 text-center" *ngIf="isDataLoaded">
-        <p>friends-list works!</p>
+    <div class="col-lg-3 text-center mt-2 pb-5 ml-3" *ngIf="isDataLoaded" style="background-color: rgba(3, 69, 140, 0.8);">
+            <h3 style="color: white;">
+                Your Friends
+            </h3>
+        <div *ngFor="let friend of friends" style="background-color: slategray;"  >
 
-        <div *ngFor="let friend of friends">
+            <div class="row mt-2" >
+                <div class="col-5 ml-0">
+                    <img src="{{friend.imgUrl}}" class="img-fluid img-thumbnail" style="width:200px; height:200px;" *ngIf="friend.imgUrl"/>
+                </div>
+                <div class="col-sm-6" style="font-size: large;">
+                   
+                   <div>
+                      <b>Username: </b> {{friend.username}}                         
+                   </div>
+
+                   <div>
+                     <b>First Name: </b> {{friend.firstName}}                        
+                   </div>
+                    <div>
+                     <b>Last Name: </b> {{friend.lastName}}                     
+                    </div>
+                    <a class="btn btn-primary mt-3" [routerLink]="['/users',friend.username]" routerLinkActive="router-link-active" >View Profile</a>  
+
+                </div>
+            </div>
             
-                {{friend.username}}
-               <img src="{{friend.imgUrl}}" class="img-fluid img-thumbnail" style="width:200px; heigth:100px;" /> 
+                
+               
         </div>
 
-        <h5>Invitations</h5>
-        <div *ngFor="let invite of invites; let i = index;">
-            {{invite.requester.username}}
+    </div>
+
+    <div class="col-lg-4 text-center" style="margin-left: 8%;">
+        <app-search-users ></app-search-users>
+    </div>
+
+    <div class="col-lg-3 mt-2" style="margin-left: 7%; background-color: rgba(58, 86, 131, 0.8)" >
+            <h3 class="text-center" style="color: white;">Invitations</h3>
+        <div *ngFor="let invite of invites; let i = index;" style="background-color: slategray;">
+
+
+            <div class="row">
+            <div class="col-5 ml-0">
+                <img src="{{invite.requester.imgUrl}}" class="img-fluid img-thumbnail" style="width:200px; height:200px;" *ngIf="invite.requester.imgUrl"/>
+            </div>
+            <div class="col-sm-6" style="font-size: large;">
+               
+               <div class="mt-2">
+                  <b>Username: </b> {{invite.requester.username}}                         
+               </div>
+
+               <div class="mt-2">
+                 <b>First Name: </b> {{invite.requester.firstName}}                        
+               </div>
+                <div class="mt-2">
+                 <b>Last Name: </b> {{invite.requester.lastName}}                     
+                </div>
+
+
             <button class = "btn btn-success" (click) = "acceptInvitation(i)">Accept</button>
-        </div>
+            </div>                
+            </div>
 
-    </div>
 
-    <div class="col-lg-6 text-center">
-        <app-search-users></app-search-users>
-    </div>
 
-    <div>
-            <h5>Invitations</h5>
-        <div *ngFor="let invite of invites; let i = index;">
-            {{invite.requester.username}}
-            <button class = "btn btn-success" (click) = "acceptInvitation(i)">Accept</button>
         </div>
     </div>
-
-
 </div>
+
+
 

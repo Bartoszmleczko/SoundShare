@@ -20,7 +20,6 @@ export class SearchUsersComponent implements OnInit {
         this.isDataLoaded = true;
       }
     )
-    console.log(this.users);
   }
 
   getUsers(event) {
