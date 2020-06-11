@@ -1,6 +1,6 @@
 img {
-    width: 200px;
-    height: 200px;
+    width: 100%;
+    height: 100%;
 }
 
 .cards{
@@ -12,6 +12,7 @@ img {
 
 .title{
     text-align: center;
+    height: 33%;
 
 }
 
@@ -29,8 +30,8 @@ img {
 
 .audio{
     
-    padding-left: 40px;
-    padding-top: 15px;
+    height: 33%;
+    text-align: center;
 }
 
 .container{
@@ -45,8 +46,16 @@ img {
     outline: 0;
 }
 
-.menusong{
-    margin-top: 5px;
-    margin-left: 5px;
-   
+
+.menu{
+    text-align: center;
+   padding-left: 10px;
+}
+
+.menuwidth{
+    width: 100%;
+}
+
+.backgroundmenu{
+    background-color: blanchedalmond;
 }

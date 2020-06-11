@@ -4,13 +4,13 @@
         <a [routerLink]="['/songForm']" routerLinkActive="router-link-active"  class="btn btn-success"> Add new Song</a>
     </div>
     <div class="container" *ngFor="let song of songs; let i=index">
-        <div class="cards" >
+        <div class="cards " >
         
         <p><b>{{song.rate}}</b></p>
-        <div class="player">
+        <div class="player border border-light">
             <div class="row">
-        <div class="col-4"><img style="text-align: left;"  src="{{song.imgPath}}" *ngIf="song.imgPath"/></div>
-        <div class="col-8">
+        <div class="col-5 "><img  class="border border-light" style="text-align: left;"  src="{{song.imgPath}}" *ngIf="song.imgPath"/></div>
+        <div class="col-7 ">
             <div><h5 class="title"> 
                 <b>{{song.title}}</b></h5>
                 <p class="data"><b>{{song.date | date: 'dd.MM.yyyy HH:m'}}</b></p></div>
@@ -19,12 +19,16 @@
             <source src="{{song.filePath}}"/>
             </audio>
         </div>
-        <div >
-            <a class="menusong" (click) = "selectSong(i)"><img class="like" src="assets/img/add.png" >Dodaj post</a>
-            <a  class="menusong" (click) = "deleteSong(i)"><img class="like" src="assets/img/trash.png" > Usuń</a>  
-            <a  class="menusong" (click) = "addLike(i)" *ngIf="!isLikedByUser[i]"><img class="like" src="assets/img/like.png" > Lubię to</a>
-            <a  class="menusong" (click) = "deleteLike(i)"*ngIf="isLikedByUser[i]"><img class="like" src="assets/img/unlike.png" ></a>
-            <a  class="menusong" [routerLink]="['/songs/edit', song.song_id]" routerLinkActive="router-link-active" ><img class="like" src="assets/img/edit.png" >Edit Song</a>
+        <div class="menu " >
+            <div class="row ">
+            <div class="col-2"></div>
+            <div class="col-2 menuwidth"><a class="menusong" (click) = "selectSong(i)"><img class="like" src="assets/img/add.png" ><br>Dodaj post</a></div>
+            <div class="col-2 menuwidth"><a  class="menusong" (click) = "deleteSong(i)"><img class="like" src="assets/img/trash.png" ><br>Usuń</a> </div> 
+            <div class="col-2 menuwidth"><a  class="menusong" (click) = "addLike(i)" *ngIf="!isLikedByUser[i]"><img class="like" src="assets/img/like.png" ><br> Lubię to</a>
+            <a  class="menusong" (click) = "deleteLike(i)"*ngIf="isLikedByUser[i]"><img class="like" src="assets/img/unlike.png" ></a></div>
+            <div class="col-2 menuwidth"><a  class="menusong" [routerLink]="['/songs/edit', song.song_id]" routerLinkActive="router-link-active" ><img class="like" src="assets/img/edit.png" ></a><br>Edit Song</div>
+            <div class="col-2"></div>
+            </div>
         </div>
         </div>
         </div>
