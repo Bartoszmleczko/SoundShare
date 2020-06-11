@@ -13,7 +13,7 @@
 
 }
 
-.like{
+.add{
    height: 30px;
    width: 40px;
    background: url("../../../assets/img/add.png") no-repeat;
@@ -23,8 +23,62 @@
 
 }
 
-.like:hover{
+.add:hover{
     background: url("../../../assets/img/add_green.png") no-repeat;
+    background-size: contain;
+    background-position: center;
+}
+
+
+.delete{
+    height: 30px;
+    width: 40px;
+    background: url("../../../assets/img/trash.png") no-repeat;
+    background-size: contain;
+    background-position: center;
+    cursor: pointer;
+}
+
+.delete:hover{
+    background: url("../../../assets/img/trash_red.png") no-repeat;
+    background-size: contain;
+    background-position: center;
+}
+
+.like{
+    height: 30px;
+    width: 40px;
+    background: url("../../../assets/img/like.png") no-repeat;
+    background-size: contain;
+    background-position: center;
+    cursor: pointer;
+}
+
+.like:hover{
+    background: url("../../../assets/img/like_blue.png") no-repeat;
+    background-size: contain;
+    background-position: center;
+}
+
+.unlike{
+    height: 30px;
+    width: 40px;
+    background: url("../../../assets/img/unlike.png") no-repeat;
+    background-size: contain;
+    background-position: center;
+    cursor: pointer;
+}
+
+.edit{
+    height: 30px;
+    width: 40px;
+    background: url("../../../assets/img/edit.png") no-repeat;
+    background-size: contain;
+    background-position: center;
+    cursor: pointer;
+}
+.edit:hover{
+    background: url("../../../assets/img/edit_blue.png") no-repeat;
     background-size: contain;
     background-position: center;
 }
@@ -58,6 +112,12 @@
 .menu{
     text-align: center;
    padding-left: 10px;
+}
+
+.menusong{
+    cursor: pointer;
+    text-decoration: none;
+    color: black;
 }
 
 .menuwidth{
