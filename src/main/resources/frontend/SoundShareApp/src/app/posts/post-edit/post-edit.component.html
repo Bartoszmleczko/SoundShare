@@ -1,17 +1,18 @@
-<p>post-edit works!</p>
-<div class="row" *ngIf="isDataLoaded">
-    <div class="col-md-12">
+
+<div class="row d-flex justify-content-center" *ngIf="isDataLoaded">
+    <div class="col-md-6">
         <form action="" class="group-form" [formGroup] = "postForm" >
-            <div class="input-group mb-3">
+            <div class="input-group mb-3 " style="width: 80%; margin-left: auto; margin-right: auto;">
                 <div class="input-group-prepend">
                     <span class="input-group-text" id="username-span" style="background-color: darkseagreen">Post Title</span>
                 </div>
-                <input type="text" [placeholder]="post.postTitle" class="form-control" formControlName ="title" [(ngModel)]="post.postTitle" aria-describedby="username-span">    
+                <input type="text" [placeholder]="post.postTitle" class="form-control" formControlName ="title"  [(ngModel)]="post.postTitle" aria-describedby="username-span">    
+            <button class="btn btn-primary  ml-2" type = "submit" (click) = "editPost()">Add Post</button>
             </div>
-            <textarea formControlName="description" [placeholder]="post.postDescription" [(ngModel)]="post.postDescription">
+            <textarea formControlName="description" class="center" [placeholder]="post.postDescription" [(ngModel)]="post.postDescription" style=" width: 100%; min-height: 200px;">
 
             </textarea>
-            <button class="btn btn-primary" type = "submit" (click) = "editPost()">Add Post</button>
+            
 
         </form>
     </div>
