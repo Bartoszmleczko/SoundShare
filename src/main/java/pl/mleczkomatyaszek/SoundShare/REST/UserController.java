@@ -63,7 +63,7 @@ public class UserController {
     public List<Song> userSongs(@PathVariable String username, Pageable pageable){
         User user = userService.findByUsername(username);
         return songService.findAll(java.util.Optional.of("_"),pageable).stream().filter(x ->
-            x.getFilePath().contains(user.getUsername())).collect(Collectors.toList());
+                x.getFilePath().contains(user.getUsername())).collect(Collectors.toList());
     }
 
 
