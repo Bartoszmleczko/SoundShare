@@ -1,7 +1,7 @@
 <div class="container-fluid mt-2">
     <div class="row" >
-        <span>Songs</span>
-        <a [routerLink]="['/songForm']" routerLinkActive="router-link-active"  class="btn btn-success"> Add new Song</a>
+        
+        <a [routerLink]="['/songForm']" routerLinkActive="router-link-active"  class="addsongs "> Add new Song</a>
     </div>
     <div class="container" *ngFor="let song of songs; let i=index">
         <div class="cards " >
