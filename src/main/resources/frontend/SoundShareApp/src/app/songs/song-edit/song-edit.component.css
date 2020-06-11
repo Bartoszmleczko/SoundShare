@@ -36,7 +36,8 @@ h5{
   }
 
   .send{
-   
-    
+    display:inline-block;
+    float: right;
+    margin: 20px;
    
   }
