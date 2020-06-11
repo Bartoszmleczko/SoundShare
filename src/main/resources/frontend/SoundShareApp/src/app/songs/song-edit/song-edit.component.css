@@ -1,0 +1,42 @@
+h5{
+   margin: auto;
+}
+
+.editsong{
+    width: 50%;
+    margin-bottom: 50px;
+}
+
+.formSong{
+    text-align: center;
+    margin: 10px;
+}
+
+.lyrics{
+    min-width: 300px;
+    min-height: 90%;
+    word-break: break-word;
+    
+}
+
+.formLyrics{
+    min-height: 300px;
+
+  
+}
+
+.title{
+  
+    width: 300px;
+}
+
+
+.auto_height { /* CSS */
+    width: 100%;
+  }
+
+  .send{
+   
+    
+   
+  }

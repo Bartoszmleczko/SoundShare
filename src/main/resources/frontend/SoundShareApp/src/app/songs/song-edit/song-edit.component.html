@@ -1,15 +1,27 @@
-<div class="input-group mb-3">
-    <div class="input-group-prepend">
-        <span class="input-group-text" id="username-span" style="background-color: darkseagreen">Song Title</span>
-    </div>
-    <input type="text" placeholder="Title" class="form-control" [(ngModel)] = "title" aria-describedby="username-span">    
-  </div>
-  <div class="input-group mb-3">
-    <div class="input-group-prepend">
-        <span class="input-group-text" id="username-span" style="background-color: darkseagreen">Lyrics</span>
-    </div>
-    <textarea  placeholder="Lyrics" [(ngModel)]="lyrics">
 
-    </textarea>  
-    <button class="btn btn-success"  (click)="edit()"></button>
+
+
+  <div class="container editsong" style="background-color: aqua;">
+    <div class="row" >
+          <h5>Edit Song</h5> 
+    </div>
+          <div class="row formSong">
+              <div class="col-3">Title: </div>
+              <div class="col-6"><input class="title" type="text" [(ngModel)]="title"></div>
+              <div class="col-3"></div> 
+          </div>
+          <div class="row formSong">
+              <div class="col-3">Lyrics:</div>
+              <div class="col-6 formLyrics"> <textarea class="lyrics" type="text" [(ngModel)]="lyrics"></textarea></div>
+              <div class="col-3"></div>
+         </div>
+         <div class="row">
+          <div class="col-3"></div>
+          <div class="col-6"> <button class="btn btn-success send"  (click)="edit()">Edit</button></div>
+          <div class="col-3"></div>
+           
+         
+
+    
+
   </div>
