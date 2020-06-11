@@ -11,15 +11,23 @@ import { TokenStorageService } from 'src/app/services/token-storage.service';
 export class PostComponent implements OnInit {
 
   posts;
-  isLikedByUser: boolean = false;
-
+  isLikedByUser: boolean[] = [];
+  user;
   constructor(private postService: PostService, private tokenStorage: TokenStorageService) { }
 
   ngOnInit() {
     this.postService.getUsersPosts().subscribe(
       data => {this.posts = data;
-      console.log(this.posts[0]);}
-    );
+               this.user = this.tokenStorage.getUser().username;
+               for(let i=0; i<this.posts.length; i++){
+                  if(this.posts[i].likes.includes(this.user)){
+                    this.isLikedByUser.push(true);
+                    this.posts.filter
+                  } else{
+                  this.isLikedByUser.push(false);
+                }
+      }
+    });
   }
 
   deletePost(id){
@@ -29,6 +37,24 @@ export class PostComponent implements OnInit {
         console.log(data);
         this.posts.splice(id,1);
       } 
+    );
+  }
+
+  likePost(id){
+    const post = this.posts[id].post_id;
+    this.postService.addLike(post).subscribe(
+      data => {
+        this.isLikedByUser[id] = true;
+      }
+    );
+  }
+
+  dislikePost(id){
+    const post = this.posts[id].post_id;
+    this.postService.deleteLike(post).subscribe(
+      data => {
+        this.isLikedByUser[id] = false;
+      }
     );
   }
 

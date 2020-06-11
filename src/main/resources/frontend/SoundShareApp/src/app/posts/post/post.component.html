@@ -1,13 +1,13 @@
 
 <div class="row d-flex justify-content-center" style="color: white; text-align: center;">
 
-    <div  class="col-md-4 mt-2">
-        <div *ngFor="let post of posts; let i=index;" class="bg-dark mb-2; " >
+    <div  class="col-md-5 mt-2">
+        <div *ngFor="let post of posts; let i=index;" class="bg-dark mb-2 " >
 
 
             <div class="row " style="background-color: rgba(3, 69, 140, 0.8);">
-                <div class="col-5 " style="margin-left: 0px ;">
-                    <img src="{{post.song.imgPath}}" class="img-fluid img-thumbnail" style="width:322px; height:322px;" *ngIf="post.song.imgPath"/>
+                <div class="col-5 p-0" style="margin-left: 0px ;">
+                    <img src="{{post.song.imgPath}}" class="img-fluid img-thumbnail " style="width: 100%; height:322px;" *ngIf="post.song.imgPath"/>
                 </div>
 
 
@@ -29,6 +29,8 @@
                         <source src="{{post.song.filePath}}"/>
                     </audio>
                 <div class="row " style="margin-top: 10%;">
+                    <button class="btn btn-success btn-lg ml-1" *ngIf="!isLikedByUser[i]" (click) = "likePost(i)">Like Post</button>
+                    <button class="btn btn-info btn-lg ml-1" routerLinkActive="router-link-active" *ngIf="isLikedByUser[i]" (click) = "dislikePost(i)">Dislike Post</button>
                     <button class="btn btn-secondary btn-lg ml-1" [routerLink]="['/posts', post.post_id]" routerLinkActive="router-link-active" >See details</button>
                     <a class="btn btn-primary btn-lg ml-2" [routerLink]="['/posts/edit', post.post_id]" routerLinkActive="router-link-active">Edit Post</a>
                     <a class="btn btn-danger btn-lg  ml-2"  (click) = "deletePost(i)"> Delete Post</a>                

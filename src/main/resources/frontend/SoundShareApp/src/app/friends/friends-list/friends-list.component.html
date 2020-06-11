@@ -4,9 +4,9 @@
             <h3 style="color: white;">
                 Your Friends
             </h3>
-        <div class="border border-light" *ngFor="let friend of friends" style="background-color: slategray;"  >
+        <div class="border border-light mt-2" *ngFor="let friend of friends" style="background-color: slategray;"  >
 
-            <div class="row mt-2 " >
+            <div class="row " >
                 <div class="col-5 ml-0 ">
                     <img src="{{friend.imgUrl}}" class="img-fluid img-thumbnail" style="width:200px; height:200px;" *ngIf="friend.imgUrl"/>
                 </div>

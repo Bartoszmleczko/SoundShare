@@ -1,12 +1,25 @@
-<p>post-detail works!</p>
-<div class="row">
-    <div class="col-md-3"></div>
-    <div class="col-md-6">
-        {{post.postTitle}}
-        {{post.postDescription}}
+
+<div class="row d-flex justify-content-center">
+
+    <div class="col-md-6 text-center" style="color: white;">
+        
+        <div class="">
+            <h2><b>{{post.postTitle}}</b></h2>
+        </div>
+        <article class="bg-dark">
+            <p class="text-justify text-wrap " style="width:100%; min-height: 250px; background-color:slategray">
+             {{post.postDescription}}                   
+            </p>
+
+        </article>
+
+    </div>
+</div>
+
         <div *ngFor="let comment of comments" class="bg-dark">
             {{comment.content}}
         </div>
+
         <div class="group-form">
             <form [formGroup]="commentForm" > 
             
@@ -16,5 +29,3 @@
                 <button class="btn btn-success" (click) = "addComment()"> Add comment</button>
             </form>
         </div>
-    </div>
-</div>
