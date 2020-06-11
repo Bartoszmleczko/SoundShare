@@ -18,7 +18,7 @@
 }
 
 .player{
-    background-color: rgba(174, 236, 226, 0.534);
+    background-color: rgba(174, 236, 226, 0.534); 
     
     
 }
@@ -31,7 +31,7 @@
 }
 
 .container{
-    width: 50%;
+    max-width: 800px;
 }
 
 .data {
@@ -51,5 +51,4 @@
 .menuwidth{
     width: 100%;
 }
-
 
