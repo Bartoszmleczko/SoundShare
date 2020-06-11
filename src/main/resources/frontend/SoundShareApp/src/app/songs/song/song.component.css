@@ -52,3 +52,19 @@
     width: 100%;
 }
 
+.addsongs{
+    background-color: black;
+    color:white;
+    padding: 12px 22px;
+    display: block;
+    border-radius: 20px;
+    border: 1px white solid;
+   margin:auto;
+   cursor: pointer;
+   transition: 0.3s;
+   text-decoration: none;
+}
+
+.addsongs:hover{
+    background-color: gray;
+}
