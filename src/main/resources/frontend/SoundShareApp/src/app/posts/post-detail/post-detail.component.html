@@ -1,31 +1,56 @@
 
-<div class="row d-flex justify-content-center">
+<div class="row d-flex justify-content-around" *ngIf="isPostAvailable && isCommentAvailable">
 
-    <div class="col-md-6 text-center" style="color: white;">
-        
-        <div class="">
-            <h2><b>{{post.postTitle}}</b></h2>
+    <div class="col-md-3 ">
+
+        <div class="group-form">
+            <form [formGroup]="commentForm" class="d-flex justify-content-center"> 
+            
+                <textarea placeholder="Type your comment" formControlName="content" style="width: 100%; min-height: 120px;">
+
+                </textarea>
+                <button class="btn btn-success" (click) = "addComment()"> Add </button>
+            </form>
         </div>
+
+    </div>
+
+
+
+    <div class="col-md-6 text-center " style="color: white;">
+        
+        <div class="" style="background-color: slategray; width: 80%; margin-left: auto ; margin-right: auto;" >
+            <p> </p>
+            <h1 style="font-size: 40px;"><b>{{post.postTitle}}</b></h1>
+            <div class="d-flex justify-content-around">
+                <p>
+                    
+                    Author: <img src="{{post.user.imgUrl}}" style="height: 20px; width: 20px; margin-left: 5px; margin-right: 5px;">  <b>{{post.user.username}}</b>
+                </p>
+                <p>Created: <b>{{post.date | date: 'dd-MM-yyy HH:ss'}}</b></p>
+            </div>
+        </div>
+        <hr style="background-color:white;">
         <article class="bg-dark">
-            <p class="text-justify text-wrap " style="width:100%; min-height: 250px; background-color:slategray">
+            <p class="text-justify text-wrap post-description" style="width:100%; min-height: 250px; background-color:slategray; font-size: 18px;">
              {{post.postDescription}}                   
             </p>
 
         </article>
 
+
     </div>
+
+    <div class="col-md-3 ">
+
+        <h2 class="text-center" style="color: white;">Comments</h2>
+
+        <div *ngFor="let comment of comments" class="bg-light mt-2 p-2" style="color: black;">
+            <h3 class="text-center"> <img src="{{comment.user.imgUrl}}" style="height: 20px; width: 20px; margin-left: 5px; margin-right: 5px;"> {{comment.user.username}}</h3>
+            <p class="text-justify text-wrap">
+                {{comment.content}} 
+            </p>
+        </div>        
+    </div>
+
 </div>
-
-        <div *ngFor="let comment of comments" class="bg-dark">
-            {{comment.content}}
-        </div>
-
-        <div class="group-form">
-            <form [formGroup]="commentForm" > 
-            
-                <textarea placeholder="Type your comment" formControlName="content">
-
-                </textarea>
-                <button class="btn btn-success" (click) = "addComment()"> Add comment</button>
-            </form>
-        </div>
