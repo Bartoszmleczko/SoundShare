@@ -1,3 +1,4 @@
+import { SongDetailComponent } from './songs/song-detail/song-detail.component';
 import { PostService } from './services/post.service';
 import { Role } from './models/entities/role/role.model';
 import { AuthGuardService } from './services/auth-guard.service';
@@ -32,16 +33,18 @@ import { SongEditComponent } from './songs/song-edit/song-edit.component';
 import { WallComponent } from './users/wall/wall.component';
 import { EditUserComponent } from './users/edit-user/edit-user.component';
 
+
 const appRoutes: Routes =[
   {path: 'register', component: RegisterComponent},
   {path: 'login', component: LoginComponent},
   {path: '', component: UserProfileComponent, canActivate: [AuthGuardService], data: {roles: 'USER'}, children: [
     {path: 'wall', component: WallComponent, canActivate: [AuthGuardService], data: {roles: 'USER'}},
     {path: 'songs', component: SongComponent, canActivate: [AuthGuardService], data: {roles: 'USER'}},
+    {path: 'songs/:id', component: SongDetailComponent, canActivate: [AuthGuardService], data: {roles: 'USER'}},
     {path: 'songs/edit/:id', component: SongEditComponent, canActivate: [AuthGuardService],data: {roles: 'USER'}},
     {path: 'songForm', component: NewSongComponent, canActivate: [AuthGuardService], data: {roles: 'USER'}},
     {path: 'posts', component: PostComponent, canActivate: [AuthGuardService], data: {roles: 'USER'}},
-    {path: 'postsForm', component: NewPostComponent, canActivate: [AuthGuardService], data: {roles: 'USER'}},
+    {path: 'postsForm/:song_id', component: NewPostComponent, canActivate: [AuthGuardService], data: {roles: 'USER'}},
     {path: 'posts/:id', component: PostDetailComponent, canActivate: [AuthGuardService], data: {roles: 'USER'}},
     {path: 'posts/edit/:id', component: PostEditComponent, canActivate: [AuthGuardService], data: {roles: 'USER'}},
     {path: 'friends', component: FriendsListComponent, canActivate: [AuthGuardService], data: {roles: 'USER'}},
@@ -68,7 +71,8 @@ const appRoutes: Routes =[
     PostEditComponent,
     SongEditComponent,
     WallComponent,
-    EditUserComponent
+    EditUserComponent,
+    SongDetailComponent
   ],
   imports: [
     BrowserModule,

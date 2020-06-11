@@ -19,6 +19,7 @@ export class WallComponent implements OnInit {
     this.postService.getFriendsPosts(this.tokenStorage.getUser().username).subscribe(
       (data: any[]) => {
         this.wallPosts = data;
+        console.log(this.wallPosts[0].song);
         this.postsLoaded = true;
         this.user = this.tokenStorage.getUser().username;
         for(let i=0; i<this.wallPosts.length; i++){

@@ -21,27 +21,31 @@
 
 
 
-    <div class="col-md-5 text-center " style="color: white;">
-        
-        <div class="" style="background-color: slategray; width: 80%; margin-left: auto ; margin-right: auto;" >
-            <p> </p>
-            <h1 style="font-size: 40px;"><b>{{post.postTitle}}</b></h1>
-            <div class="d-flex justify-content-around">
-                <p>
+    <div class="col-md-5 text-center p-0" style="color: white;">
+        <div class="row p-0">
+             <div class="" style="background-color: slategray; width: 80%; margin-left: auto ; margin-right: auto;" >
+            
+                <h1 style="font-size: 40px;"><b>{{post.postTitle}}</b></h1>
+                <div class="d-flex justify-content-around">
+                    <p>
                     
-                    Author: <img src="{{post.user.imgUrl}}" style="height: 20px; width: 20px; margin-left: 5px; margin-right: 5px;">  <b>{{post.user.username}}</b>
-                </p>
-                <p>Created: <b>{{post.date | date: 'dd-MM-yyy HH:ss'}}</b></p>
+                        Author: <img src="{{post.user.imgUrl}}" style="height: 20px; width: 20px; margin-left: 5px; margin-right: 5px;">  <b>{{post.user.username}}</b>
+                    </p>
+                    <p>Created: <b>{{post.date | date: 'dd-MM-yyy HH:ss'}}</b></p>
+                </div>
+          
             </div>
+                <button class="btn btn-success " > <img src="/assets/img/like.png" alt=""></button>
         </div>
+
         <hr style="background-color:white;">
         <article class="bg-dark">
-            <p class="text-justify text-wrap post-description" style="width:100%; min-height: 250px; background-color:slategray; font-size: 18px;">
+            <p class="text-justify text-wrap post-description p-2" style="width:100%; min-height: 250px; background-color:slategray; font-size: 18px;">
              {{post.postDescription}}                   
             </p>
 
         </article>
-
+        
 
     </div>
 
@@ -63,9 +67,9 @@
         <div *ngFor="let comment of comments; let j=index" class="bg-light mt-2 p-2" style="color: black;">
             <div class="row d-flex justify-content-around">
                  <h3 class="text-center"> <img src="{{comment.user.imgUrl}}" style="height: 20px; width: 20px; margin-left: 5px; margin-right: 5px;"> {{comment.user.username}}</h3>
-                <button (click) = "deleteComment(j)" class="btn btn-danger" *ngIf="loggedInUser.username === comment.user.username " > <i class="far fa-trash-alt mr-1"></i>Delete</button>               
+                <button (click) = "deleteComment(j)" class="btn btn-danger btn-sm" *ngIf="loggedInUser.username === comment.user.username " > <i class="far fa-trash-alt mr-1"></i>Delete</button>               
             </div>
-
+            <hr>
             <p class="text-justify text-wrap">
                 {{comment.content}} 
             </p>
