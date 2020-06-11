@@ -16,14 +16,24 @@ export class PostDetailComponent implements OnInit {
   commentForm = this.fb.group({
     content: ['']
   });
+  isPostAvailable = false;
+  isCommentAvailable = false;
   constructor(private activeRoute: ActivatedRoute, private postService: PostService, private fb: FormBuilder) {}
 
   ngOnInit() {
     this.post = this.postService.getPost(this.activeRoute.snapshot.paramMap.get('id')).subscribe(
-        data => this.post = data
+        data =>{
+        this.post = data;
+        this.isPostAvailable = true;
+        } 
+
     );
     this.postService.getComments(this.activeRoute.snapshot.paramMap.get('id')).subscribe(
-      data => this.comments = data
+      data =>{
+        this.comments = data;
+        this.isCommentAvailable = true;
+      }
+
     );
   }
 
