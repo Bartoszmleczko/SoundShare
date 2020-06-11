@@ -1,4 +1,10 @@
+
+<div *ngIf="isDataAvailable">
+
+
 <img src="{{imgUrl}}" *ngIf="imgUrl">
+
+<p>{{loggedInUser.username}}</p>
 
 <div *ngIf="currentFile" class="progress">
     <div
@@ -18,3 +24,6 @@
   </label>
 
   <button class="btn btn-success" (click)="upload()">Change profile photo</button>
+
+</div>
+

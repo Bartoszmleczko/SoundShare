@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpEventType, HttpResponse } from '@angular/common/http';
 import { UserService } from 'src/app/services/user.service';
+import { TokenStorageService } from 'src/app/services/token-storage.service';
+import { SongService } from 'src/app/services/song.service';
+import { FriendsService } from 'src/app/services/friends.service';
 
 @Component({
   selector: 'app-edit-user',
@@ -13,16 +16,27 @@ export class EditUserComponent implements OnInit {
   currentFile: File;
   progress = 0;
   message = '';
+  loggedInUser;
+  isDataAvailable = false;
 
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService, private friendService: FriendsService,  private tokenStorage: TokenStorageService) { }
 
   ngOnInit() {
+    this.getUser();
   }
 
   selectFile(event) {
     this.selectedFiles = event.target.files;
   }
 
+  getUser(){
+    const username = this.tokenStorage.getUser().username;
+    this.friendService.getUser(username).subscribe(
+      data => {
+        this.isDataAvailable=true;
+        this.loggedInUser = data;
+      });
+  }
 
   upload(){
     this.progress = 0;
