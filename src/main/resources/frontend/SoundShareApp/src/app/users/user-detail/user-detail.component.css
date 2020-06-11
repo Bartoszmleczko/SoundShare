@@ -1,0 +1,56 @@
+.userAvatar{
+    width: 80%;
+    height: 80%;
+    border-radius: 50%;
+    margin: 10px;
+    text-align: left;
+}
+
+.profile{
+    color: white;
+    font-size: 20px;
+    text-align: center;
+    margin-left: 1rem;
+   
+}
+
+
+
+.container{
+    background-color: rgba(174, 236, 226, 0.616);
+    border-radius: 20px;
+    margin-bottom: 50px;
+    color:black;
+}
+
+.post{
+    border-bottom: 1px solid rgba(45, 61, 58, 0.616);
+   
+}
+
+.titlePost{
+    
+}
+
+
+.icon{
+    width: 30px;
+    height: 40px;
+}
+
+.image{
+    width: 60px;
+    height: 60px;
+    text-align: left;
+}
+
+.songs{
+    padding: 5px;
+    
+}
+
+.song{
+    padding: 5px;
+    border-bottom: 1px solid rgba(45, 61, 58, 0.616);
+   
+}
