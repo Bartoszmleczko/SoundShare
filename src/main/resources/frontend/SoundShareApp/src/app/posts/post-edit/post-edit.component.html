@@ -1,6 +1,7 @@
 
 <div class="row d-flex justify-content-center" *ngIf="isDataLoaded">
-    <div class="col-md-6">
+    <div class="col-md-6 p-2" style="background-color: whitesmoke;">
+        <h2 class="text-center">Edit Post: {{post.postTitle}}</h2>
         <form action="" class="group-form" [formGroup] = "postForm" >
             <div class="input-group mb-3 " style="width: 80%; margin-left: auto; margin-right: auto;">
                 <div class="input-group-prepend">
@@ -9,7 +10,7 @@
                 <input type="text" [placeholder]="post.postTitle" class="form-control" formControlName ="title"  [(ngModel)]="post.postTitle" aria-describedby="username-span">    
             <button class="btn btn-primary  ml-2" type = "submit" (click) = "editPost()">Add Post</button>
             </div>
-            <textarea formControlName="description" class="center" [placeholder]="post.postDescription" [(ngModel)]="post.postDescription" style=" width: 100%; min-height: 200px;">
+            <textarea formControlName="description" class="center" [placeholder]="post.postDescription" [(ngModel)]="post.postDescription" style=" width: 100%; min-height: 200px; color: white; background-color: slategray;">
 
             </textarea>
             

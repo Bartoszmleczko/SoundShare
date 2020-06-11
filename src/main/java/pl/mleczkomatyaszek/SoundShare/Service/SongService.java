@@ -92,6 +92,7 @@ public class SongService {
         Song song = this.findById(model.getSong_id());
 
         song.setTitle(model.getTitle());
+        song.setLyrics(model.getLyrics());
         song.setRatings(model.getRatings());
         song.setRate(model.getRatings().stream().mapToInt(Integer::intValue).average());
         return songRepository.save(song);

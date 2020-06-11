@@ -50,11 +50,11 @@ export class SongComponent implements OnInit {
     );
   }
 
-  selectSong(id: number) {
-    const song = this.songs[id];
-    this.postService.setSong(song);
-    this.router.navigate(['/postsForm']);
-  }
+  // selectSong(id: number) {
+  //   const song = this.songs[id];
+  //   this.postService.setSong(song);
+  //   this.router.navigate(['/postsForm']);
+  // }
 
   countRate(i,j) {
     console.log(i + ' ' + j);

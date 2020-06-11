@@ -1,19 +1,41 @@
-<p>new-post works!</p>
-<div class="row">
-    <div class="col-md-12">
-        <form action="" class="group-form" [formGroup] = "postForm" >
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" id="username-span" style="background-color: darkseagreen">Username</span>
-                </div>
-                <input type="text" placeholder="Post Title" class="form-control" formControlName ="title" aria-describedby="username-span">    
+
+<div class="row d-flex justify-content-around" *ngIf="isDataAvailable">
+
+
+    <div class="col-lg-3 p-1" style="background-color: dimgray;">
+        <div class="text-center" style="color: white;">
+            <img src="{{song.imgPath}}" style="width: 100%; height: 300px;">
+            <h2>{{song.title}}</h2>
+            <div>
+                <pre>
+                    {{song.lyrics}}
+                </pre>
             </div>
-            <textarea formControlName="description">
+        </div>
+    </div>
+    
+    <div class="col-md-6" style="background-color: slategray;">
+        <h2 class="text-center" style="color: white;">Fill in form</h2>
+        <div class="col-11 ml-4 mt-2">
+         <form action="" class="group-form" [formGroup] = "postForm" >
+            <div class="input-group mb-3  d-flex">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="username-span" style="background-color: darkseagreen">Post Title</span>
+                </div>
+                <input type="text" placeholder="Post Title" class="form-control" formControlName ="title" aria-describedby="username-span"> 
+                <button class="btn btn-primary ml-3" type = "submit" (click) = "addPost()">Add Post</button>   
+            </div>
+            <div class="" style="">
+             <textarea formControlName="description" [placeholder]="placeholder" style="width: 100%; min-height: 300px; ">
 
-            </textarea>
+            </textarea>           
+            </div>
 
-            <button class="btn btn-primary" type = "submit" (click) = "addPost()">Add Post</button>
 
-        </form>
+            
+
+        </form>           
+        </div>
+
     </div>
 </div>
