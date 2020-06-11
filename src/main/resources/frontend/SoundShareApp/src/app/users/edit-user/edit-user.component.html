@@ -12,19 +12,55 @@
       {{ progress }}%
     </div>
   </div>
-  
-  <label class="btn btn-default">
-    <input type="file" (change)="selectFile($event)" />
-  </label>
-
-  <button class="btn btn-success" (click)="upload()">Change profile photo</button>
-
+ 
   <div class="container">
-    <div class="row profilebackground" *ngIf="isDataAvailable" >
+    <div class="row profilebackground border border-light " *ngIf="isDataAvailable" >
      
-      <div class="col-4 "><img  class="profileimg" src="{{loggedInUser.imgUrl}}"> </div>
-      <div class="col-4 ">assd</div>
-      <div class="col-4 ">asdasd</div>
+      <div class="col-5 "><img  class="profileimg" src="{{loggedInUser.imgUrl}}"> </div>
+      <div class="col-7 ">
+           <form>
+            <div class="row" >
+              <h4  >Your Profile </h4>
+        
+            </div>
+          <div class="row">
+            <p>Username: </p><input class="editForm" type="text" value="{{loggedInUser.username}}">
+      
+          </div>
+          <div class="row">
+            <p>Email: </p><input class="editForm" type="text" value="{{loggedInUser.email}}">
+      
+          </div>
+          <div class="row">
+            <p>First Name:</p><input  class="editForm" type="text" value=" {{loggedInUser.firstName}}">
+      
+          </div>
+          <div class="row">
+            <p>Last Name:</p  ><input  class="editForm" type="text" value=" {{loggedInUser.lastName}}">
+
+
+          
+      
+          </div>
+          <div class="row">
+            <input  class="send" type="submit" value="Edit">
+
+
+          
+      
+          </div>
+        </form>
+        <div class="row">
+        <label class="btn btn-default">
+          <input type="file" (change)="selectFile($event)" />
+        </label>
+      
+        <button class="btn btn-success" (click)="upload()">Change profile photo</button>
+      </div>
+      
+      
+      </div>
+      
 
 
     </div>
