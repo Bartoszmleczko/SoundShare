@@ -14,7 +14,19 @@
 }
 
 .like{
-   max-height: 30px;
+   height: 30px;
+   width: 40px;
+   background: url("../../../assets/img/add.png") no-repeat;
+   background-size: contain;
+   background-position: center;
+   cursor: pointer;
+
+}
+
+.like:hover{
+    background: url("../../../assets/img/add_green.png") no-repeat;
+    background-size: contain;
+    background-position: center;
 }
 
 .player{
