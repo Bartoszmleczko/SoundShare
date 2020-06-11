@@ -1,23 +1,27 @@
 
 <div class="row d-flex justify-content-around" *ngIf="isPostAvailable && isCommentAvailable">
 
-    <div class="col-md-3 ">
-
-        <div class="group-form">
-            <form [formGroup]="commentForm" class="d-flex justify-content-center"> 
+    <div class="col-md-4 d-flex justify-content-center" >
+        <div class="col-11" style="background-color: dimgrey;">
+            <h3 class="text-center" style="color: white;">{{post.song.title}}</h3>
+            <hr>
+            <img src="{{post.song.imgPath}}" style="width: 100%;">
             
-                <textarea placeholder="Type your comment" formControlName="content" style="width: 100%; min-height: 120px;">
+            <div class="col-12">
+               
+                    <pre style="color: white;">
+                      {{post.song.lyrics}}  
+                    </pre>
+                    
+            </div>
 
-                </textarea>
-                <button class="btn btn-success" (click) = "addComment()"> Add </button>
-            </form>
         </div>
-
+        
     </div>
 
 
 
-    <div class="col-md-6 text-center " style="color: white;">
+    <div class="col-md-5 text-center " style="color: white;">
         
         <div class="" style="background-color: slategray; width: 80%; margin-left: auto ; margin-right: auto;" >
             <p> </p>
@@ -41,12 +45,27 @@
 
     </div>
 
-    <div class="col-md-3 ">
+    <div class="col-md-2 ">
 
         <h2 class="text-center" style="color: white;">Comments</h2>
 
-        <div *ngFor="let comment of comments" class="bg-light mt-2 p-2" style="color: black;">
-            <h3 class="text-center"> <img src="{{comment.user.imgUrl}}" style="height: 20px; width: 20px; margin-left: 5px; margin-right: 5px;"> {{comment.user.username}}</h3>
+        <div class="group-form">
+            <form [formGroup]="commentForm" class="d-flex justify-content-center"> 
+            
+                <textarea placeholder="Type your comment" formControlName="content" style="width: 100%; min-height: 120px;">
+
+                </textarea>
+                <button class="btn btn-success" (click) = "addComment()"> Add </button>
+            </form>
+        </div>
+
+
+        <div *ngFor="let comment of comments; let j=index" class="bg-light mt-2 p-2" style="color: black;">
+            <div class="row d-flex justify-content-around">
+                 <h3 class="text-center"> <img src="{{comment.user.imgUrl}}" style="height: 20px; width: 20px; margin-left: 5px; margin-right: 5px;"> {{comment.user.username}}</h3>
+                <button (click) = "deleteComment(j)" class="btn btn-danger" *ngIf="loggedInUser.username === comment.user.username " > <i class="far fa-trash-alt mr-1"></i>Delete</button>               
+            </div>
+
             <p class="text-justify text-wrap">
                 {{comment.content}} 
             </p>

@@ -15,18 +15,12 @@ export class NewPostComponent implements OnInit {
     title: [''],
     description: ['']
   });
-  ckeConfig: any;
 
   constructor(private postService: PostService, private fb: FormBuilder) { }
 
   ngOnInit() {
-    this.ckeConfig = {
-      allowedContent: false,
-      extraPlugins: 'divarea',
-      forcePasteAsPlainText: true
-    }; 
-    this.song = this.postService.getSong();
 
+    this.song = this.postService.getSong();
   }
 
   addPost(){

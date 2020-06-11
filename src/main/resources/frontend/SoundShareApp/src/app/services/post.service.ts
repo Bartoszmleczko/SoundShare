@@ -63,6 +63,10 @@ export class PostService {
     return this.httpClient.put(API_URL + 'posts/dislikes', dislike);
   }
 
+  public deleteComment(comment_id){
+    return this.httpClient.delete(API_URL + 'comments/' + comment_id);
+  }
+
 
 
 }
