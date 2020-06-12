@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Router, NavigationEnd, Event, ActivatedRoute } from '@angular/router';
+import { Component, OnInit, OnChanges, AfterViewInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { PostService } from 'src/app/services/post.service';
 import { TokenStorageService } from 'src/app/services/token-storage.service';
@@ -8,14 +9,17 @@ import { TokenStorageService } from 'src/app/services/token-storage.service';
   templateUrl: './post.component.html',
   styleUrls: ['./post.component.css']
 })
-export class PostComponent implements OnInit {
+export class PostComponent implements OnInit{
 
   posts;
   isLikedByUser: boolean[] = [];
   user;
-  constructor(private postService: PostService, private tokenStorage: TokenStorageService) { }
+  constructor(private postService: PostService, private tokenStorage: TokenStorageService, private router: Router,
+              private actRoute:  ActivatedRoute) {
+               }
 
   ngOnInit() {
+
     this.postService.getUsersPosts().subscribe(
       data => {this.posts = data;
                this.user = this.tokenStorage.getUser().username;
@@ -35,9 +39,8 @@ export class PostComponent implements OnInit {
     this.postService.deletePost(post_id).subscribe(
       data =>{
         console.log(data);
-        this.posts.splice(id,1);
-      } 
-    );
+      });
+        this.posts.splice(id,1);      
   }
 
   likePost(id){
