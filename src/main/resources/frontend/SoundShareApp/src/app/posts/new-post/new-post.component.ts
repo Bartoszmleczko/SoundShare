@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PostService } from 'src/app/services/post.service';
 import { FormBuilder } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { SongService } from 'src/app/services/song.service';
 
 @Component({
@@ -19,7 +19,8 @@ export class NewPostComponent implements OnInit {
   isDataAvailable = false;
   placeholder = 'Type in Your post description';
   
-  constructor(private postService: PostService, private fb: FormBuilder, private activeRoute: ActivatedRoute, private songService: SongService) { }
+  constructor(private postService: PostService, private fb: FormBuilder, private activeRoute: ActivatedRoute, private songService: SongService,
+              private router: Router) { }
 
   ngOnInit() {
     const song_id= this.activeRoute.snapshot.paramMap.get('song_id');
@@ -39,6 +40,8 @@ export class NewPostComponent implements OnInit {
     this.postService.addPost(post).subscribe(
       data => console.log(data)
     );
+    this.router.navigate(['/posts']);
+    
   }
 
 }

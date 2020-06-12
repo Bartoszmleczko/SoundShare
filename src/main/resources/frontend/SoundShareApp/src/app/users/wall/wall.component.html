@@ -1,12 +1,12 @@
-<div class="row d-flex justify-content-center" *ngIf="postsLoaded">
-    <div class="col-md-6 text-center">
+<div class="row d-flex justify-content-center" *ngIf="postsLoaded" >
+    <div class="col-md-6 text-center p-4" style="background-color:rgba(0, 0, 0, 0.5);">
         <h2 style="color: white;">Your Friends Posts</h2>
         <div *ngFor="let post of wallPosts; let i = index;">
 
 
-            <div class="row mt-5 ml-0 p-0" style="color:white; background-color: rgba(64, 64, 104, 0.5);">
+            <div class="row mt-5 ml-0 p-0 border border-secondary rounded" style="color:white; background-color: rgba(64, 64, 104, 0.5);">
                 <div class="col-6 p-0">
-                    <img src="{{post.song.imgPath}}" style="width: 100%; height: 300px">
+                    <img src="{{post.song.imgPath}}" style="width: 100%; height: 300px" class="img-fluid img-thumbnail">
                     <h5> <a  class="btn btn-outline-danger btn-block mt-2" style="font-size: 20px;" [routerLink]="['/songs', post.song.song_id]" routerLinkActive="router-link-active">{{post.song.title}}</a></h5>
                 </div>
 
@@ -14,8 +14,8 @@
                     <div class="mb-4 mt-2 text-center" style="color: white;">
                         <h2 class="text-center">{{post.postTitle}} </h2>
                         <div class="row d-flex justify-content-between">
-                            <span>
-                                Author:   <img src="{{post.user.imgUrl}}" style="width: 20px; height: 20px; margin-left: 5px; margin-right: 5px;">  <b>{{post.user.username}} </b>
+                            <span class="ml-5">
+                                Author:   <img src="{{post.user.imgUrl}}"  style="width: 20px; height: 20px; margin-left: 5px; margin-right: 5px;">  <b>{{post.user.username}} </b>
                             </span>
                             <span>
                                 Created: <b>{{post.date | date: 'dd.MM.yyyy HH:m'}}  </b>
@@ -28,9 +28,9 @@
                                     </audio>
                             </span>
                         <br>
-                        <a  class="btn btn-primary btn-lg" [routerLink]="['/posts', post.post_id]" routerLinkActive="router-link-active" >See details</a>
-                        <button class="btn btn-success btn-lg" (click) = "like(i)" *ngIf="!isLikedByUser[i]">Like Post</button>
-                        <button class="btn btn-danger btn-lg" (click) = "dislike(i)" *ngIf="isLikedByUser[i]">Dislike Post</button>
+                        <a  class="btn btn-secondary btn-block btn-lg mt-5 ml-5" [routerLink]="['/posts', post.post_id]" routerLinkActive="router-link-active" >  <i class="fas fa-search-plus"></i>See details</a>
+                        <button class="btn btn-success btn-block btn-lg mt-3 ml-5" (click) = "like(i)" *ngIf="!isLikedByUser[i]"><i class="far fa-thumbs-up"></i>Like Post</button>
+                        <button class="btn btn-danger btn-block btn-lg mt-3 ml-5" (click) = "dislike(i)" *ngIf="isLikedByUser[i]"><i class="far fa-thumbs-down"></i>Dislike Post</button>
                     </div>
                 </div>
 
