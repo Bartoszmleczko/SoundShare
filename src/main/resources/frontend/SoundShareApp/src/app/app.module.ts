@@ -1,4 +1,4 @@
-import { SongDetailComponent } from './songs/song-detail/song-detail.component';
+
 import { PostService } from './services/post.service';
 import { Role } from './models/entities/role/role.model';
 import { AuthGuardService } from './services/auth-guard.service';
@@ -40,7 +40,6 @@ const appRoutes: Routes =[
   {path: '', component: UserProfileComponent, canActivate: [AuthGuardService], data: {roles: 'USER'}, children: [
     {path: 'wall', component: WallComponent, canActivate: [AuthGuardService], data: {roles: 'USER'}},
     {path: 'songs', component: SongComponent, canActivate: [AuthGuardService], data: {roles: 'USER'}},
-    {path: 'songs/:id', component: SongDetailComponent, canActivate: [AuthGuardService], data: {roles: 'USER'}},
     {path: 'songs/edit/:id', component: SongEditComponent, canActivate: [AuthGuardService],data: {roles: 'USER'}},
     {path: 'songForm', component: NewSongComponent, canActivate: [AuthGuardService], data: {roles: 'USER'}},
     {path: 'posts', component: PostComponent, canActivate: [AuthGuardService], data: {roles: 'USER'}},
@@ -72,7 +71,7 @@ const appRoutes: Routes =[
     SongEditComponent,
     WallComponent,
     EditUserComponent,
-    SongDetailComponent
+  
   ],
   imports: [
     BrowserModule,
