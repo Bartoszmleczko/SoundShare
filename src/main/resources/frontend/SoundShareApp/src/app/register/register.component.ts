@@ -1,5 +1,5 @@
 import { User } from './../models/entities/user/user.model';
-import { FormBuilder,FormGroup,FormControl,ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder,FormGroup,FormControl,ReactiveFormsModule, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { RegisterService } from '../services/register.service';
 import { Router } from '@angular/router';
@@ -13,11 +13,11 @@ import { Router } from '@angular/router';
 export class RegisterComponent implements OnInit {
   newUser: User;
   registerForm = this.fb.group({
-    username: [''],
-    password: [''],
-    firstName: [''],
-    lastName: [''],
-    email: ['']
+    username: ['',[Validators.required, Validators.minLength(3)]],
+    password: ['', [Validators.required, Validators.minLength(3)]],
+    firstName: ['', [Validators.required, Validators.minLength(3)]],
+    lastName: ['', [Validators.required, Validators.minLength(3)]],
+    email: ['',[Validators.required]]
   });
 
   constructor(private fb: FormBuilder, private registerService: RegisterService, private router: Router) {

@@ -18,32 +18,28 @@
      
       <div class="col-5 "><img  class="profileimg" src="{{loggedInUser.imgUrl}}"> </div>
       <div class="col-7 ">
-           <form>
+           <form [formGroup]="editForm" >
             <div class="row" >
               <h4  >Your Profile </h4>
         
             </div>
           <div class="row">
-            <p>Username: </p><input class="editForm" type="text" value="{{loggedInUser.username}}">
+            <p>Username: </p><input class="editForm" formControlName="username" type="text" [(ngModel)]="loggedInUser.username">
       
           </div>
           <div class="row">
-            <p>Email: </p><input class="editForm" type="text" value="{{loggedInUser.email}}">
+            <p>Email: </p><input class="editForm" type="text" formControlName="email" [(ngModel)]="loggedInUser.email">
       
           </div>
           <div class="row">
-            <p>First Name:</p><input  class="editForm" type="text" value=" {{loggedInUser.firstName}}">
+            <p>First Name:</p><input  class="editForm" type="text" formControlName="firstName" [(ngModel)]="loggedInUser.firstName">
       
           </div>
           <div class="row">
-            <p>Last Name:</p  ><input  class="editForm" type="text" value=" {{loggedInUser.lastName}}">
-
-
-          
-      
+            <p>Last Name:</p  ><input  class="editForm" type="text" formControlName="lastName" [(ngModel)]="loggedInUser.lastName">
           </div>
           <div class="row">
-            <input  class="send" type="submit" value="Edit">
+            <button  class="btn btn-primary"  (click) = "editUser()" style="margin-left: auto; margin-right: auto;"> Edit</button>
 
 
           

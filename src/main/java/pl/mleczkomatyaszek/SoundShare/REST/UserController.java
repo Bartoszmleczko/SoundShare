@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import pl.mleczkomatyaszek.SoundShare.Entity.*;
 import pl.mleczkomatyaszek.SoundShare.Model.LoginRequest;
 import pl.mleczkomatyaszek.SoundShare.Model.LoginResponse;
+import pl.mleczkomatyaszek.SoundShare.Model.UserEditModel;
 import pl.mleczkomatyaszek.SoundShare.Model.UserModel;
 import pl.mleczkomatyaszek.SoundShare.Security.JwtUtils;
 import pl.mleczkomatyaszek.SoundShare.Service.SongService;
@@ -107,7 +108,13 @@ public class UserController {
     @PreAuthorize("hasAuthority('USER')")
     @PostMapping("/users/img")
     public String setImage(@RequestParam MultipartFile img, Principal principal){
-        return userService.editUser(img,principal);
+        return userService.setImage(img,principal);
+    }
+
+    @PreAuthorize("hasAuthority('USER')")
+    @PutMapping("/users")
+    public String editUser(@RequestBody UserEditModel model){
+        return userService.editUser(model);
     }
 
     @PreAuthorize("hasAuthority('USER')")

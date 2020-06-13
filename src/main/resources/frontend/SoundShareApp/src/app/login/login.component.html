@@ -1,37 +1,3 @@
-
-
-
-<!-- <div class="container-fluid "></div>
-    <div class="row">
-    
-    <div class="col-md-6 bg-dark d-flex justify-content-center align-items-center" style="color: white;">
-                    <h2 class="text-center mt-2">Login</h2>
-                    <hr class="hr-white">
-    <form [formGroup]="userForm" (ngSubmit) = "authenticate()" class="form-group" >
-
-        <div class="input-group mb-3">
-            <div class="input-group-prepend">
-                <span class="input-group-text" id="username-span">Username</span>
-            </div>
-            <input type="text" placeholder="Username" class="form-control" formControlName="username" aria-describedby="username-span">    
-        </div>
-
-        <div class="input-group mb-3">
-            <div class="input-group-prepend">
-                <span class="input-group-text" id="password-span">Password</span>
-            </div>
-            <input type="password" placeholder="password" class="form-control" formControlName="password" aria-describedby="password-span">
-        </div>
-        <div class="text-center mb-3">
-            <button type="submit" class="btn btn-primary btn-lg mr-2" >Login</button>
-            <button type="button" class="btn btn-success btn-lg ml-2" [routerLink]="['/register']">Register</button>            
-        </div>
-    </form>
-      
-    </div>
-</div>
-</div> -->
-
 <div class="menuimage">
         
 </div>
@@ -54,10 +20,17 @@
                     </div>
                     <input type="password" placeholder="Password" class="form-control form-control-lg" formControlName="password" aria-describedby="password-span">
                 </div>
+
+                <div *ngIf="isLoginFailed" class="text-center mt-2 mb-2" style="color: red;">
+                    
+                    <button disabled class="btn btn-outline-danger">Invalid login. Wrong username or password.</button>
+                </div>
+
                 <div class="text-center mb-3">
                     <button type="submit" class="btn btn-primary btn-block btn-lg mr-2 ml-5"  style="width: 80%;">Login</button>
                     <button type="button" class="btn btn-success btn-lg ml-2 mt-2" [routerLink]="['/register']">Register</button>            
                 </div>
+
             </form>
         
         </div>

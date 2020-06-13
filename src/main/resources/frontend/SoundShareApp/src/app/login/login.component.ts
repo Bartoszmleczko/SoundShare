@@ -13,7 +13,7 @@ import { TokenStorageService } from '../services/token-storage.service';
 export class LoginComponent implements OnInit {
   isLoggedIn = false;
   isLoginFailed = false;
-
+  message = '';
   userForm = this.fb.group({
       username : [''],
       password : ['']
@@ -32,9 +32,15 @@ export class LoginComponent implements OnInit {
     let password = this.userForm.get('password').value;
     this.authService.login({username, password}).subscribe(
       data => {
+        this.isLoginFailed = false;
         this.tokenStorage.saveUser(data);
         this.tokenStorage.saveJwtToken(data.token);
         this.router.navigate(['/wall']);
+      },
+      error => {
+        this.isLoginFailed = true;
+        this.message = 'Invalid login. Wrong username or password.';
+        console.log(this.message);
       }
     );
   }

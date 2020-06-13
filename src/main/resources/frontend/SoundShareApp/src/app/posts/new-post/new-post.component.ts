@@ -41,7 +41,6 @@ export class NewPostComponent implements OnInit {
       data => console.log(data)
     );
     this.router.navigate(['/posts']);
-    
   }
 
 }

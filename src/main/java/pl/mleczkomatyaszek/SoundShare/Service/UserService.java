@@ -10,6 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 import pl.mleczkomatyaszek.SoundShare.Entity.*;
 import pl.mleczkomatyaszek.SoundShare.Exception.GenericIdNotFoundException;
 import pl.mleczkomatyaszek.SoundShare.Exception.UserAlreadyExists;
+import pl.mleczkomatyaszek.SoundShare.Model.UserEditModel;
 import pl.mleczkomatyaszek.SoundShare.Model.UserModel;
 import pl.mleczkomatyaszek.SoundShare.Repository.*;
 
@@ -82,7 +83,17 @@ public class UserService {
     }
 
     @Transactional
-    public String editUser(MultipartFile img, Principal principal) {
+    public String editUser(UserEditModel model){
+        User dbUser = this.findByUsername(model.getUsername());
+        dbUser.setFirstName(model.getFirstName());
+        dbUser.setLastName(model.getLastName());
+        dbUser.setEmail(model.getEmail());
+        userRepository.save(dbUser);
+        return "User edited successfully";
+    }
+
+    @Transactional
+    public String setImage(MultipartFile img, Principal principal) {
         String username = principal.getName();
         User user = this.findByUsername(username);
         Path imgPath = Paths.get(user.getUserPath()+ File.separator + img.getOriginalFilename());

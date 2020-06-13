@@ -21,4 +21,8 @@ export class UserService {
     return this.httpClient.request(req);
   }
 
+  edit(user) {
+    return this.httpClient.put(API_URL + 'users', user);
+  }
+
 }

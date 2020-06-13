@@ -78,7 +78,7 @@ const appRoutes: Routes =[
     FormsModule,
     NgbModule.forRoot(),
     ReactiveFormsModule,
-    RouterModule.forRoot(appRoutes),
+    RouterModule.forRoot(appRoutes, {onSameUrlNavigation: 'reload'}),
     HttpClientModule,
     FileUploadModule,
     CKEditorModule,

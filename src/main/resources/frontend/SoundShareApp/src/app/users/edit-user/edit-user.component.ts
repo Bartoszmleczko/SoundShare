@@ -1,3 +1,4 @@
+import { FormBuilder } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { HttpEventType, HttpResponse } from '@angular/common/http';
 import { UserService } from 'src/app/services/user.service';
@@ -18,8 +19,15 @@ export class EditUserComponent implements OnInit {
   message = '';
   loggedInUser;
   isDataAvailable = false;
+  editForm = this.fb.group({
+    username: [''],
+    firstName: [''],
+    lastName: [''],
+    email: ['']
+  });
 
-  constructor(private userService: UserService, private friendService: FriendsService,  private tokenStorage: TokenStorageService) { }
+  constructor(private userService: UserService, private friendService: FriendsService,  private tokenStorage: TokenStorageService,
+              private fb: FormBuilder) { }
 
   ngOnInit() {
     this.getUser();
@@ -37,6 +45,23 @@ export class EditUserComponent implements OnInit {
         this.loggedInUser = data;
       });
   }
+  
+  editUser(){
+    const user = {
+      username: this.tokenStorage.getUser().username,
+      firstName: this.editForm.get('firstName').value,
+      lastName: this.editForm.get('lastName').value,
+      email: this.editForm.get('email').value
+    };
+    this.userService.edit(user).subscribe(
+      data => {
+        console.log(data);
+      }
+    );
+    window.location.reload();
+  }
+
+
 
   upload(){
     this.progress = 0;
