@@ -18,8 +18,10 @@ export class PostDetailComponent implements OnInit {
     content: ['']
   });
   songUser;
+  likes: [];
   isPostAvailable = false;
   isCommentAvailable = false;
+  isLikedByUser = false;
   loggedInUser;
   constructor(private activeRoute: ActivatedRoute, private postService: PostService, private fb: FormBuilder,
               private tokenStorage: TokenStorageService) {}
@@ -29,6 +31,12 @@ export class PostDetailComponent implements OnInit {
         data =>{
         this.loggedInUser = this.tokenStorage.getUser();
         this.post = data;
+        this.likes = this.post.likes;
+        for(let like of this.likes){
+          if(like === this.loggedInUser.username){
+            this.isLikedByUser = true;
+          }
+        }
         this.songUser = this.post.song.user;
         console.log(this.post);
         this.isPostAvailable = true;
@@ -58,5 +66,23 @@ export class PostDetailComponent implements OnInit {
     );
     this.comments.splice(id,1)
   }
+
+  like(){
+    this.postService.addLike(this.post.post_id).subscribe(
+      data => {
+        console.log(data);
+        this.isLikedByUser =true;
+      }
+    );
+    }
+
+dislike(){
+  this.postService.deleteLike(this.post.post_id).subscribe(
+    data => {
+      console.log(data);
+      this.isLikedByUser = false;
+    }
+  );
+}
 
 }

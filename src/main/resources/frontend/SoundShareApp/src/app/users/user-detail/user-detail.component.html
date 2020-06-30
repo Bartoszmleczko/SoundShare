@@ -24,7 +24,11 @@
              </div>
              <div class="row ">
              <button class="btn btn-success btn-lg mt-2 invite" (click) = "invite()" [disabled] =  "isUserARequester || isUserInvited" *ngIf="!isUserAFriend">Invite User</button>           
-             <span  style="  text-align: center; margin-left: 2.5rem; " *ngIf="isUserAFriend"> You are friend to this user</span>
+             
+             <button class="btn btn-primary ml-5 mb-1" *ngIf="isUserAFriend">
+                 <span  style="  text-align: center; "> You are friend to this user</span>
+             </button>
+             
             </div></div>
             <div class="col-4 profil">
                    <h3 class="titlePost">{{clickedUser.username}} Posts <i class="fas fa-globe"></i>  </h3> 
@@ -40,29 +44,25 @@
                         <div class="col-7">
 
                             <h5 style="text-align: center; padding-bottom: 2px;">{{post.postTitle}}</h5> 
-                            <div class="row">
+                            <div class="row p-1">
                               
-                                <div class="col-6" style="text-align: center;">
-                                    <a  (click) = "likePost(j)" *ngIf="!isPostLikedByUser[j]">
-                                    <img class="icon" src="assets/img/like.png">
-                                    <div class="row description" >
-                                        Like
-                                    </div>
+                                <div class="col-5" style="text-align: center;">
+                                    <a  (click) = "likePost(j)" *ngIf="!isPostLikedByUser[j]" class="btn btn-success" style="height: 65px; width: 65px;">
+                                        <i class="fas fa-thumbs-up" ></i>
+                                        Like 
                                     </a>  
-                                    <a  (click) = "dislikePost(j)" *ngIf="isPostLikedByUser[j]">
-                                    <img  class="icon" src="assets/img/unlike.png">
-                                    <div class="row" style="text-align: center;">
+                                    <a  (click) = "dislikePost(j)" *ngIf="isPostLikedByUser[j]" class="btn btn-danger" style="height: 65px; width: 65px;">
+                                        <i class="fas fa-thumbs-down"></i>
                                         Dislike
-                                    </div>
                                     </a>
 
                                 
                                  </div>
                            
                                 <div class="col-6" style="width: 100%; ">
-                                    <a  [routerLink]="['/posts/post.post_id']" routerLinkActive="router-link-active" >
-                                    <img class="icon" src="assets/img/search.png">
-                                    View Post
+                                    <a  [routerLink]="['/posts/post.post_id']" routerLinkActive="router-link-active" class="btn btn-info">
+                                        <i class="fas fa-search"></i>
+                                    Details
                                     </a>
                                 </div>
                             </div>
@@ -84,6 +84,17 @@
               <div class="row p-2" *ngFor="let song of songs; let i=index;">
                     <div class="col-10 song">
                         <img src="{{song.imgPath}}" class="image" *ngIf="song.imgPath"/><span style="margin-left: 10px;">{{song.title}}</span>
+
+                        <a class="btn btn-primary ml-3" [routerLink]="['/postsForm', song.song_id]" routerLinkActive="router-link-active" >
+                            <i class="fas fa-plus-circle"></i>
+                           Create Post 
+                        </a>
+
+                        <div class="audio mt-1">
+                            <audio  controls>
+                            <source src="{{song.filePath}}"/>
+                            </audio>
+                        </div>
                     </div>
               </div>
 

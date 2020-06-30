@@ -15,7 +15,7 @@
                         <h2 class="text-center">{{post.postTitle}} </h2>
                         <div class="row d-flex justify-content-between">
                             <span class="ml-5">
-                                Author:   <img src="{{post.user.imgUrl}}"  style="width: 20px; height: 20px; margin-left: 5px; margin-right: 5px;">  <b>{{post.user.username}} </b>
+                                Author:   <img src="{{post.user.imgUrl}}"  style="width: 20px; height: 20px; margin-left: 5px; margin-right: 5px;">  <a href="" [routerLink]="['/users', post.user.username]" routerLinkActive="router-link-active" >{{post.user.username}} </a><b></b>
                             </span>
                             <span>
                                 Created: <b>{{post.date | date: 'dd.MM.yyyy HH:m'}}  </b>

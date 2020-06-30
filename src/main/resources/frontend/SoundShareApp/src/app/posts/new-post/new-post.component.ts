@@ -40,7 +40,7 @@ export class NewPostComponent implements OnInit {
     this.postService.addPost(post).subscribe(
       data => console.log(data)
     );
-    this.router.navigate(['/posts']);
+    window.location.reload();
   }
 
 }

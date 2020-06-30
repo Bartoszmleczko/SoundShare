@@ -63,7 +63,7 @@ export class NewSongComponent implements OnInit {
       });
   
     this.selectedFiles = undefined;
-    this.router.navigate(['/songs']);
+    window.location.reload();
   }
 
 }

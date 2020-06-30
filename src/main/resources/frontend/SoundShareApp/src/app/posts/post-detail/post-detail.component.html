@@ -35,7 +35,8 @@
                 </div>
           
             </div>
-                <button class="btn btn-success " > <img src="/assets/img/like.png" alt=""></button>
+                <button class="btn btn-success btn-lg" style="width: 75px;" (click)="like()" *ngIf="!isLikedByUser"><i class="fas fa-thumbs-up"></i></button>
+                <button class="btn btn-danger btn-lg" style="width: 75px;" (click)="dislike()" *ngIf="isLikedByUser"> <i class="fas fa-thumbs-down"></i></button>
         </div>
 
         <hr style="background-color:white;">

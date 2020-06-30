@@ -29,7 +29,6 @@ export class WallComponent implements OnInit {
           } else{
             this.isLikedByUser.push(false);
           }
-            console.log(this.wallPosts[i].postTitle + ' ' + this.isLikedByUser[i]);
           }
         }
     );
